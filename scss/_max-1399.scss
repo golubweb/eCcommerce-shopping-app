@@ -1,0 +1,54 @@
+/*--------------------------------
+			 Destop 1200
+--------------------------------*/ 
+@media (max-width: 1399px) {
+		
+	body {padding: 0 15px;}
+		
+	.page { 
+		width: 100%; 
+		padding: 5px;
+		    
+        .logo { 
+           width: 100%; 
+           margin-bottom:10px;
+        }
+        .logo h1 {                		   
+            font-size: 35px;
+       		float: none;
+		   	margin: 0 auto;
+        		 
+        	a { 
+                float:none;
+                margin:0 auto;
+            }
+        }   
+       
+       .navbar .nav {width: 79%;}
+       .form-search {width:18%;}
+       .search-int  {width: 126px;}
+      
+       	.ei-slider-large li img {
+			width: 100%;
+			margin-left: 0 !important;
+			border-radius: 0 0 0 0 !important;
+		}
+				
+		.banner-ogl {
+		    h2 {font-size: 29px;}	
+			h3 {padding: 0 5%;
+				a {padding: 0;}	
+		    }
+		
+			p {
+		        width: 94%;
+		        font-size: 16px;
+		        line-height: 27px;
+		        padding: 3%;
+			}
+		}	
+		       
+		.foot-area:last-child { width: 19.7%;}  
+		.content-mail input[type="text"] {width: 50%;} 
+	} 
+}

@@ -1,0 +1,31 @@
+/*--------------------------
+	      Body
+---------------------------*/
+body {  
+    padding: 20px 0;
+    background: url(../img/body-bg.jpg) no-repeat top center; 
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+* {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+a {
+    color: #be4443; 
+    text-decoration: none; 
+    &:hover {text-decoration: none;}
+}
+
+span {line-height: normal;}
+p    {font-family: Arial, Helvetica; line-height: normal;}
+
+.hr, .hr1 {
+    background: none repeat scroll 0 0 #a23a39;
+    height: 3px;
+    margin: 0 auto;
+    width: 98%;
+}

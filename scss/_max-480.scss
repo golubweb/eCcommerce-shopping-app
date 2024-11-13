@@ -1,0 +1,152 @@
+/*-----------------------------------------------
+			        Tablet 480
+------------------------------------------------*/ 
+@media (max-width: 480px) {
+
+    .page {
+        header {
+		    .logo {
+		        width: 100%; 
+		       
+		       	h1 {
+		       		float: none; 
+		       		margin: 0 auto;
+		       		 
+				    a {
+				        height: 52px;
+				        float:none;
+				        margin: 0 auto;
+		            }
+		       	}
+		    }
+		       
+	        /**** Nav ****/     
+	        .navbar {
+			    .nav-collapse, .nav-collapse.collapse {width: 100%; border-top: 1px solid #000000; background:#2A2A2A; background-image:none;}
+	            .nav {
+	                width: 100%; 
+	                margin: 0; 
+	                padding-bottom: 15px;
+					         
+					li {
+					    width: 100%; 
+					    margin: 0; 
+					    border-bottom: 1px solid #555555;
+											 
+						a {
+							font-size: 13px;
+							font-weight: normal;
+							margin: 0;
+							padding: 10px 4%;
+							border-bottom: 1px solid #000000;
+							background-image: none;
+					    }
+					}
+	            }
+				.form-search { width:100%; margin: 0; padding-bottom:10px;} 
+				.search-int {width: 82%; margin-left: 4%; }
+	        }
+        }
+       
+        main {
+		    .center {
+		        width: 100%; 
+		        margin: 0;
+		           
+				/**** Ei Slider ****/
+		      	.ei-slider-large li img {margin-left:0 !important;}
+		     		.ei-title {background: none;}
+		     			 
+				/**** Section Article ****/
+				section article {width: 49.76%;
+					.article-title p {max-width: 16.8%;}
+				}
+				section {
+					article {width: 100%;}
+				}
+		    }
+		
+	        aside {
+	            width:100%;
+	       
+				.menu-aside ul li a {
+					padding: 11px 5% 11px 8%;
+			       		
+		       		/**** Login ****/
+		       		form { width: 90%; padding: 5%;}
+		       		form input[type="text"], form input[type="password"] {
+						width: 97%;
+						float: none;
+						margin: 0 0 14px;
+					}
+				}
+	     		  
+	     		/**** Cart ****/
+	     		.products img {height:100%;}
+			
+				/**** Banner info ****/
+			    .banner-info p {
+			 	    font-size:22px;
+						padding: 2%;
+						width: 98%;
+				     
+				    img {width: 12%;}
+				 }
+	
+				 /***** Banner olgas ****/
+				 .banner-ogl h3 { padding:5px 5%;}
+	        }
+		}
+			 
+		footer {
+	        .foot-area{
+				width: 100% !important; 
+	       		line-height: normal;
+				text-align: center;
+				     
+			    p {
+					line-height: normal;
+					padding: 0;
+					text-align: center;
+				}
+	        }
+
+ 			.foot-logo {
+				width: 170px;
+				display: table;
+				line-height: 45px !important;
+				margin: 0 auto;
+				text-indent: -5000px;
+			}
+		    .social-network {
+			    width: auto;
+			    display: table;
+			    margin: 0 auto !important;
+			}
+		}
+			 
+		.flexslider {
+			width: 96%;
+			float: none;
+			margin: 10px auto;
+		}
+
+		.products-content {
+			width: 96%;
+			margin: 2%;
+					
+			/***** Procucts Page ****/
+			.products-content {
+				.article-box {
+					margin: 20px 0;
+					        
+					.products-price { width: 20%;}
+				}
+			}
+			section {width: 99% !important;
+				p {width:96%; padding:3%;}
+			}
+		}
+		.content-mail input[type="text"], .content-mail input[type="password"] {width: 50%;}
+    }
+}
