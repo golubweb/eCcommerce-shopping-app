@@ -1,0 +1,104 @@
+/*--------------------------------
+			 Footer
+--------------------------------*/
+footer {
+	width: 100%;
+	display: table;
+	line-height: 0;
+	padding: 5px;
+	box-shadow: 0 1px 1px #eeeeee inset;
+	border: 1px solid #DCDCDC;
+	background: #f0f0ef;
+		
+	.foot {
+		width:100%;
+		display: table;
+		box-shadow: 0 0px 2px #fff inset;
+		background:#fff;
+			  
+		/***** Foot Area *****/
+		.foot-area {
+			width: 24.9%;
+			float: left;
+			padding: 10px 0;
+			border-right: 1px solid #F4F3F3;
+			  		
+			h2 {
+			    color: #6B6B6B; 
+			    font-size: 16px; 
+			    padding-left: 15px;
+			    text-transform: uppercase; 
+			    line-height: normal;
+			}
+					   
+			.foot-logo { 
+			   	line-height: 45px !important;
+			   	text-indent: -5000px; 
+			   			 
+			   	a {
+  				    width: 100%; 
+  				    height: 45px;
+  				    display: block;
+			        float: left;
+			        background: url(../img/mobipro-footer.png) top left no-repeat;
+				}			
+				&:hover {opacity: 0.8;}
+		   	}
+		   			 
+		   	/***** Foot Social network *****/
+			.social-network {
+				display: table;
+				margin: 1% 8% !important;
+									
+				li {
+					float: left; 
+					margin-right: 8px;
+					border: 1px solid #DCDCDC;
+					box-shadow: 1px 1px 2px #DFDFDF;
+											
+					a {
+						width: 30px;
+						height: 29px;
+						float: left;
+						padding: 0 !important;
+						background: url(../img/facebook.jpg) top left no-repeat;
+												
+						 &:hover {opacity: 0.8;}
+					}
+					&+li a {background: url(../img/twitter.jpg) top left no-repeat;}
+					&+li+li a {background: url(../img/rrs.jpg) top left no-repeat;}
+				}
+			}
+		   			 
+		  	/***** Foot Area UL *****/
+		  	ul {
+		  		margin-top:5px;
+		  		li {
+		  			list-style:none;
+					a {
+						color: #9c9597;
+						font-size: 10px;
+						display: block;
+						padding: 2px 5px 2px 15px;
+						text-decoration: none;
+				    }
+				}
+			}			  
+	  		p {
+			    color:#9c9597; 
+			    font-size:12px; 
+			    padding-left:15px;
+			    text-transform:uppercase; 
+			    line-height:35px;
+		    }
+	  		
+	  		&+.foot-area  {width: 64.4%; border:none;}
+	  		&:first-child {width: 17.7%; padding-top:0px !important;}
+	  		&:last-child  {width: 17.7%; border-left: 1px solid #F4F3F3;}
+		}
+	}
+}
+
+.table-striped tbody > tr:nth-child(2n+1) > td, .table-striped tbody > tr:nth-child(2n+1) > th {
+    background-color: #F9F9F9;
+}    

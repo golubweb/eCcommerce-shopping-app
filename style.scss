@@ -1,0 +1,28 @@
+// BASE ==================================
+@import 'base/reset';
+@import 'base/global';
+@import 'base/typography';
+@import 'base/global-elements';
+
+// COMPONENTS ============================
+@import 'components/slider';
+@import 'components/flexslider';
+@import 'components/jquery-fancybox';
+@import 'components/ui-totop';
+@import 'components/pagination';
+@import 'components/cart-module';
+
+// LAYOUT ================================
+@import 'layout/header';
+@import 'layout/grid';
+@import 'layout/product-3-col';
+@import 'layout/sidebar';
+@import 'layout/footer';
+
+// PAGES =================================
+@import 'pages/homepage';
+@import 'pages/product-page';
+@import 'pages/checkout';
+@import 'pages/login';
+
+

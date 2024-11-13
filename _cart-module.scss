@@ -1,0 +1,116 @@
+/*--------------------------------
+		   Cart
+--------------------------------*/	
+.cart {
+    width:100%;
+	display: table;
+	margin-top: 15px;
+
+	h2 { 
+		color: #a7ce20;
+		font-size: 19px;
+	    padding: 12px 6%;
+	    text-align: left;
+	    text-shadow: 1px 2px 2px #000;
+	    text-transform: uppercase;
+	    border-bottom: 1px solid #000;
+	    background: url(../img/nav-bg.jpg) top right repeat-x #3f3e3e;
+	}	
+	  
+	.aside-modul {margin-top: 0;}
+	.products, .total-holder {
+		width: 100%;
+		display: table; 
+		padding: 5px;
+		margin-bottom: 1px;
+		border: 1px solid #eaeaea;
+	}
+							     
+	.products {
+		width: 100%;
+		position: relative;
+		
+		p {
+			width: 60%;
+			float: left;
+			color: #f1f1f1;
+			font-family: "oswaldbook";
+			font-size: 11px;
+			padding: 0px 0 2px 0;
+			text-transform: uppercase;
+			
+			a {color:#3a3939; font-size: 12px; text-decoration: none;}
+		}	
+
+		.close-x {
+		    width: 16px;
+		    height: 15px;
+		    display: block;
+		    position: absolute;
+		    right: 2px;
+		    top: 2px;
+		    font-size: 0;
+		    cursor: pointer;
+		    line-height: 10px;
+		    text-align: center;
+	        background: url(../img/close.png) top left no-repeat; 
+	  			
+  			&:hover { text-indent: -5000px; opacity: 0.8;}
+  			&:focus {text-indent: none;}
+  			&:active {text-indent: none;}
+		}
+			
+		img {
+		    width: 25%;
+		    height:40px;
+		    float:left;
+		    margin: 0 4% 0 0;
+		    box-shadow: 0 1px 2px #FFFFFF inset;
+		    border: 1px solid #EEEEEE;
+		    background:#f8f6f6;
+		}
+		.quantity-holder {
+			width: 71%;
+			float: left;
+			padding: 2%;
+					  
+			span {
+			    font-size: 11px;
+			    float:left;
+			    margin-right: 5%; 
+			    line-height: normal;
+			}
+			.price {
+		  		color: #940c0d;
+		  		font-weight: bold;
+			}
+		    .quantity {
+		        padding:0 3px;
+		        background: #fff;
+		    }
+		}										  
+	}
+		
+	.total-holder {
+	    color: #3a3939;
+		font-size: 13px;
+		font-family: "oswaldbook";
+		text-align: right;
+		
+		span {font-size: 12px; padding-right: 3%;}
+		.btn-checkout {
+		    float: right;
+		    color: #fff;
+	        font-size: 10px;
+	        font-family: "oswaldbook";
+	        padding: 6px 8px;
+	        margin: 0 2% 0 0;
+	        line-height: normal;
+	        text-transform: uppercase;
+	        border: medium none;
+	        background: url("../img/btn-sub.jpg") repeat-x left bottom #FCFCFC;
+       
+        	&:hover {color:#fff; opacity: 0.8;}
+		}
+	}
+}											       
