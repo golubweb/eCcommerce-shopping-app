@@ -25,7 +25,7 @@ header {
 	                height:65px;
 	                display:block;
 	                text-indent: -5000px;
-	                background:url(../img/logo.png) top left no-repeat; 
+	                background:url(../images/logo.png) top left no-repeat; 
                 }
 		  	} 
         }		
@@ -39,7 +39,7 @@ header {
 		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	    border-radius: 0; 
 	    box-shadow: 0; 
-	    background:url(../img/nav-batton.png) top left no-repeat; 
+	    background:url(../images/nav-batton.png) top left no-repeat; 
 	    
 	    span {
 	        width: 14px;
@@ -65,7 +65,7 @@ header {
   		width: 100%;
   		display: table;
   		margin: 0px;
-  		background: url(../img/nav-bg.jpg) top left repeat-x #2a2a2a;
+  		background: url(../images/nav-bg.jpg) top left repeat-x #2a2a2a;
 	  		
 	  		
 	    nav { 
@@ -73,7 +73,7 @@ header {
 	        float:left;
 	        position: relative;
 	        display: table;
-	        background: url(../img/nav-bg.jpg) top left repeat-x #2a2a2a;
+	        background: url(../images/nav-bg.jpg) top left repeat-x #2a2a2a;
 	      		
 	      	.nav {								    
 	        	float: left;								    
@@ -92,11 +92,11 @@ header {
 			            padding:17px 23px;
 			            text-shadow:none;
 			            text-transform: uppercase;
-			            background: url(../img/nav-border.png) top right no-repeat ;
+			            background: url(../images/nav-border.png) top right no-repeat ;
 			                  
 			            &:hover { 
 							color:#BE4443; 
-							background: url(../img/nav-border.png) top right no-repeat;
+							background: url(../images/nav-border.png) top right no-repeat;
 	         			}
 	                 }   
 			    }	                
@@ -119,14 +119,14 @@ header {
 		    font-size: 12px;
 		    border-radius: 0px;
 		    border: 1px solid #444545;
-		    background: url(../img/search-bg.jpg) top left repeat-x; 
+		    background: url(../images/search-bg.jpg) top left repeat-x; 
       	}
         .submit-btn {
   			width:32px !important;
   			height:31px !important;
   			float:left;
   			cursor: pointer;
-  			background: url(../img/submit-bg.jpg) top left repeat-x;
+  			background: url(../images/submit-bg.jpg) top left repeat-x;
 	  			  
 	  		&:hover {opacity: 0.8;}     
   		}    
@@ -137,7 +137,7 @@ header {
  		height:3px;
  		clear:both;
  		margin:0 2% 10px 2%;
- 		background: url(../img/hr-bg.jpg) top left repeat-x;
+ 		background: url(../images/hr-bg.jpg) top left repeat-x;
  	}
 }
 			        			

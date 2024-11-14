@@ -65,7 +65,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
 /* line 4, ../sass/base/_global.scss */
 body {
   padding: 20px 0;
-  background: url(../img/body-bg.jpg) no-repeat top center;
+  background: url(../images/body-bg.jpg) no-repeat top center;
   background-attachment: fixed;
   background-size: cover;
 }
@@ -183,7 +183,7 @@ h6 {
   margin-right: 2px;
   text-indent: -5000px;
   border: none;
-  background: url(../img/btn-cart.jpg) bottom left no-repeat #fcfcfc;
+  background: url(../images/btn-cart.jpg) bottom left no-repeat #fcfcfc;
 }
 /* line 20, ../sass/base/_global-elements.scss */
 .btn-cart:hover {
@@ -551,7 +551,7 @@ html[xmlns] .slides {
   height: 30px;
   margin: -20px 0 0;
   display: block;
-  background: url(../img/bg_direction_nav.png) no-repeat 0 0;
+  background: url(../images/bg_direction_nav.png) no-repeat 0 0;
   position: absolute;
   top: 50%;
   z-index: 10;
@@ -745,7 +745,7 @@ html[xmlns] .slides {
   width: 30px;
   height: 30px;
   text-indent: -9999px;
-  background-image: url("../img/fancybox_buttons.png");
+  background-image: url("../images/fancybox_buttons.png");
   background-repeat: no-repeat;
   outline: none;
   opacity: 0.8;
@@ -892,7 +892,7 @@ html[xmlns] .slides {
 
 /* line 175, ../sass/components/_jquery-fancybox.scss */
 #fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-  background-image: url("../img/fancybox_sprite.png");
+  background-image: url("../images/fancybox_sprite.png");
 }
 
 /* line 179, ../sass/components/_jquery-fancybox.scss */
@@ -912,7 +912,7 @@ html[xmlns] .slides {
 #fancybox-loading div {
   width: 44px;
   height: 44px;
-  background: url("../img/fancybox_loading.gif") center center no-repeat;
+  background: url("../images/fancybox_loading.gif") center center no-repeat;
 }
 
 /* line 197, ../sass/components/_jquery-fancybox.scss */
@@ -934,7 +934,7 @@ html[xmlns] .slides {
   height: 100%;
   cursor: pointer;
   text-decoration: none;
-  background: transparent url("../img/blank.gif");
+  background: transparent url("../images/blank.gif");
   /* helps IE */
   -webkit-tap-highlight-color: transparent;
   z-index: 8040;
@@ -1004,7 +1004,7 @@ html[xmlns] .slides {
   overflow: hidden;
   display: none;
   z-index: 8010;
-  background: url("../img/fancybox_overlay.png");
+  background: url("../images/fancybox_overlay.png");
 }
 
 /* line 278, ../sass/components/_jquery-fancybox.scss */
@@ -1104,12 +1104,12 @@ html[xmlns] .slides {
   height: 40px;
   border: none;
   text-indent: -999px;
-  background: url(../img/ui.totop.png) no-repeat left top;
+  background: url(../images/ui.totop.png) no-repeat left top;
 }
 
 /* line 22, ../sass/components/_ui-totop.scss */
 #toTopHover {
-  background: url(../img/ui.totop.png) no-repeat bottom left;
+  background: url(../images/ui.totop.png) no-repeat bottom left;
   width: 40px;
   height: 40px;
   display: block;
@@ -1187,7 +1187,7 @@ html[xmlns] .slides {
   text-shadow: 1px 2px 2px #000;
   text-transform: uppercase;
   border-bottom: 1px solid #000;
-  background: url(../img/nav-bg.jpg) top right repeat-x #3f3e3e;
+  background: url(../images/nav-bg.jpg) top right repeat-x #3f3e3e;
 }
 /* line 20, ../sass/components/_cart-module.scss */
 .cart .aside-modul {
@@ -1234,7 +1234,7 @@ html[xmlns] .slides {
   cursor: pointer;
   line-height: 10px;
   text-align: center;
-  background: url(../img/close.png) top left no-repeat;
+  background: url(../images/close.png) top left no-repeat;
 }
 /* line 58, ../sass/components/_cart-module.scss */
 .cart .products .close-x:hover {
@@ -1305,7 +1305,7 @@ html[xmlns] .slides {
   line-height: normal;
   text-transform: uppercase;
   border: medium none;
-  background: url("../img/btn-sub.jpg") repeat-x left bottom #FCFCFC;
+  background: url("../images/btn-sub.jpg") repeat-x left bottom #FCFCFC;
 }
 /* line 113, ../sass/components/_cart-module.scss */
 .cart .total-holder .btn-checkout:hover {
@@ -1346,7 +1346,7 @@ header .head-top .logo h1 a {
   height: 65px;
   display: block;
   text-indent: -5000px;
-  background: url(../img/logo.png) top left no-repeat;
+  background: url(../images/logo.png) top left no-repeat;
 }
 /* line 34, ../sass/layout/_header.scss */
 header .navbar .btn-navbar {
@@ -1357,7 +1357,7 @@ header .navbar .btn-navbar {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border-radius: 0;
   box-shadow: 0;
-  background: url(../img/nav-batton.png) top left no-repeat;
+  background: url(../images/nav-batton.png) top left no-repeat;
 }
 /* line 44, ../sass/layout/_header.scss */
 header .navbar .btn-navbar span {
@@ -1384,7 +1384,7 @@ header .head-bottom {
   width: 100%;
   display: table;
   margin: 0px;
-  background: url(../img/nav-bg.jpg) top left repeat-x #2a2a2a;
+  background: url(../images/nav-bg.jpg) top left repeat-x #2a2a2a;
 }
 /* line 71, ../sass/layout/_header.scss */
 header .head-bottom nav {
@@ -1392,7 +1392,7 @@ header .head-bottom nav {
   float: left;
   position: relative;
   display: table;
-  background: url(../img/nav-bg.jpg) top left repeat-x #2a2a2a;
+  background: url(../images/nav-bg.jpg) top left repeat-x #2a2a2a;
 }
 /* line 78, ../sass/layout/_header.scss */
 header .head-bottom nav .nav {
@@ -1415,12 +1415,12 @@ header .head-bottom nav .nav li a {
   padding: 17px 23px;
   text-shadow: none;
   text-transform: uppercase;
-  background: url(../img/nav-border.png) top right no-repeat;
+  background: url(../images/nav-border.png) top right no-repeat;
 }
 /* line 97, ../sass/layout/_header.scss */
 header .head-bottom nav .nav li a:hover {
   color: #BE4443;
-  background: url(../img/nav-border.png) top right no-repeat;
+  background: url(../images/nav-border.png) top right no-repeat;
 }
 /* line 107, ../sass/layout/_header.scss */
 header .form-search {
@@ -1439,7 +1439,7 @@ header .form-search .search-int {
   font-size: 12px;
   border-radius: 0px;
   border: 1px solid #444545;
-  background: url(../img/search-bg.jpg) top left repeat-x;
+  background: url(../images/search-bg.jpg) top left repeat-x;
 }
 /* line 124, ../sass/layout/_header.scss */
 header .form-search .submit-btn {
@@ -1447,7 +1447,7 @@ header .form-search .submit-btn {
   height: 31px !important;
   float: left;
   cursor: pointer;
-  background: url(../img/submit-bg.jpg) top left repeat-x;
+  background: url(../images/submit-bg.jpg) top left repeat-x;
 }
 /* line 131, ../sass/layout/_header.scss */
 header .form-search .submit-btn:hover {
@@ -1459,7 +1459,7 @@ header .hr1 {
   height: 3px;
   clear: both;
   margin: 0 2% 10px 2%;
-  background: url(../img/hr-bg.jpg) top left repeat-x;
+  background: url(../images/hr-bg.jpg) top left repeat-x;
 }
 
 /*--------------------------------
@@ -1509,7 +1509,7 @@ section h2 {
   padding: 10px 15px 12px 15px;
   border: 1px solid #ededed;
   border-bottom: none;
-  background: url(../img/section-title.jpg) bottom left repeat-x #fefefe;
+  background: url(../images/section-title.jpg) bottom left repeat-x #fefefe;
 }
 /* line 23, ../sass/layout/_product-3-col.scss */
 section p {
@@ -1566,7 +1566,7 @@ section article .article-title {
   padding: 7px 10px;
   border-top: 1px solid #dcdcdc;
   border-bottom: 1px solid #dcdcdc;
-  background: url(../img/article-title.jpg) bottom left repeat-x #fcfcfc;
+  background: url(../images/article-title.jpg) bottom left repeat-x #fcfcfc;
 }
 /* line 72, ../sass/layout/_product-3-col.scss */
 section article .article-title h3 {
@@ -1618,7 +1618,7 @@ section article .article-box .btn-read {
   float: left;
   text-indent: -5000px;
   border: none;
-  background: url(../img/btn-read.jpg) bottom left no-repeat #fcfcfc;
+  background: url(../images/btn-read.jpg) bottom left no-repeat #fcfcfc;
 }
 /* line 125, ../sass/layout/_product-3-col.scss */
 section article .article-box .btn-read:hover {
@@ -1661,7 +1661,7 @@ aside .menu-aside h2 {
   text-align: left;
   text-shadow: 1px 2px 2px #000;
   border-bottom: 1px solid #000;
-  background: url(../img/nav-bg.jpg) top right repeat-x #3f3e3e;
+  background: url(../images/nav-bg.jpg) top right repeat-x #3f3e3e;
 }
 /* line 22, ../sass/layout/_sidebar.scss */
 aside .menu-aside ul {
@@ -1682,12 +1682,12 @@ aside .menu-aside ul li a {
   font-size: 15px;
   padding: 10px 12px 12px 37px;
   text-decoration: none;
-  background: url(../img/menu-aside.png) top left no-repeat;
+  background: url(../images/menu-aside.png) top left no-repeat;
 }
 /* line 40, ../sass/layout/_sidebar.scss */
 aside .menu-aside ul li a:hover {
   color: #c3da55;
-  background: url(../img/menu-aside-hov.png) top left no-repeat;
+  background: url(../images/menu-aside-hov.png) top left no-repeat;
 }
 /* line 43, ../sass/layout/_sidebar.scss */
 aside .menu-aside ul li:last-child {
@@ -1715,7 +1715,7 @@ aside .menu-aside .login input[type="text"], aside .menu-aside .login input[type
   box-shadow: none;
   border-radius: 0px;
   border: 1px solid #444545;
-  background: url(../img/search-bg.jpg) top left repeat-x;
+  background: url(../images/search-bg.jpg) top left repeat-x;
 }
 /* line 74, ../sass/layout/_sidebar.scss */
 aside .menu-aside .login a {
@@ -1734,7 +1734,7 @@ aside .menu-aside .login .log-user {
   custom: pointer;
   text-transform: uppercase;
   border: none;
-  background: url(../img/submit-form.jpg) top left repeat-x;
+  background: url(../images/submit-form.jpg) top left repeat-x;
 }
 /* line 92, ../sass/layout/_sidebar.scss */
 aside .menu-aside .login .log-user:hover {
@@ -1805,7 +1805,7 @@ aside .banner-ogl h3 {
   border-top: 1px solid #dfdfdf;
   border-bottom: 1px solid #dfdfdf;
   text-shadow: 1px 2px 3px #FFFFFF;
-  background: url(../img/banner-login.png) bottom left;
+  background: url(../images/banner-login.png) bottom left;
   background-repeat: 50% 50%;
 }
 /* line 167, ../sass/layout/_sidebar.scss */
@@ -1825,7 +1825,7 @@ aside .banner-ogl a {
 /* line 177, ../sass/layout/_sidebar.scss */
 aside .banner-ogl a img {
   width: 100%;
-  background: url(../img/banner-ogl.jpg) bottom left no-repeat #fff;
+  background: url(../images/banner-ogl.jpg) bottom left no-repeat #fff;
 }
 
 /*--------------------------------
@@ -1877,7 +1877,7 @@ footer .foot .foot-area .foot-logo a {
   height: 45px;
   display: block;
   float: left;
-  background: url(../img/mobipro-footer.png) top left no-repeat;
+  background: url(../images/mobipro-footer.png) top left no-repeat;
 }
 /* line 45, ../sass/layout/_footer.scss */
 footer .foot .foot-area .foot-logo:hover {
@@ -1901,7 +1901,7 @@ footer .foot .foot-area .social-network li a {
   height: 29px;
   float: left;
   padding: 0 !important;
-  background: url(../img/facebook.jpg) top left no-repeat;
+  background: url(../images/facebook.jpg) top left no-repeat;
 }
 /* line 66, ../sass/layout/_footer.scss */
 footer .foot .foot-area .social-network li a:hover {
@@ -1909,11 +1909,11 @@ footer .foot .foot-area .social-network li a:hover {
 }
 /* line 68, ../sass/layout/_footer.scss */
 footer .foot .foot-area .social-network li + li a {
-  background: url(../img/twitter.jpg) top left no-repeat;
+  background: url(../images/twitter.jpg) top left no-repeat;
 }
 /* line 69, ../sass/layout/_footer.scss */
 footer .foot .foot-area .social-network li + li + li a {
-  background: url(../img/rrs.jpg) top left no-repeat;
+  background: url(../images/rrs.jpg) top left no-repeat;
 }
 /* line 74, ../sass/layout/_footer.scss */
 footer .foot .foot-area ul {
@@ -2052,7 +2052,7 @@ footer .foot .foot-area:last-child {
   text-align: center;
   text-transform: uppercase;
   padding: 15px;
-  background: url(../img/section-title.jpg) bottom left repeat-x #fefefe;
+  background: url(../images/section-title.jpg) bottom left repeat-x #fefefe;
 }
 /* line 84, ../sass/pages/_product-page.scss */
 .tag-line > li {
@@ -2094,7 +2094,7 @@ footer .foot .foot-area:last-child {
   text-transform: uppercase;
   border: medium none;
   box-shadow: none;
-  background: url("../img/btn-cart.jpg") repeat-x scroll left bottom #FCFCFC;
+  background: url("../images/btn-cart.jpg") repeat-x scroll left bottom #FCFCFC;
 }
 /* line 113, ../sass/pages/_product-page.scss */
 .btn-cart-products:hover {
@@ -2214,7 +2214,7 @@ footer .foot .foot-area:last-child {
 }
 /* line 18, ../sass/pages/_checkout.scss */
 .content-cart .table thead {
-  background: url("../img/article-title.jpg") repeat-x left bottom #FCFCFC;
+  background: url("../images/article-title.jpg") repeat-x left bottom #FCFCFC;
 }
 /* line 19, ../sass/pages/_checkout.scss */
 .content-cart .table thead tr td {
@@ -2335,7 +2335,7 @@ footer .foot .foot-area:last-child {
   border-radius: 0;
   border: 1px solid #eee;
   box-shadow: 1px 1px 4px #FFFFFF inset;
-  background: url(../img/input-mail.jpg) top left repeat-x;
+  background: url(../images/input-mail.jpg) top left repeat-x;
 }
 /* line 30, ../sass/pages/_login.scss */
 .login textarea {
@@ -2347,7 +2347,7 @@ footer .foot .foot-area:last-child {
   border-radius: 0;
   border: 1px solid #eee;
   box-shadow: 1px 1px 4px #FFFFFF inset;
-  background: url(../img/input-mail.jpg) top left repeat-x;
+  background: url(../images/input-mail.jpg) top left repeat-x;
 }
 /* line 41, ../sass/pages/_login.scss */
 .login .btn-sub {

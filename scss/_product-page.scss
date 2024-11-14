@@ -79,7 +79,7 @@
 		text-align:center;
 		text-transform:uppercase; 
 		padding: 15px;
-		background: url(../img/section-title.jpg) bottom left repeat-x #fefefe;
+		background: url(../images/section-title.jpg) bottom left repeat-x #fefefe;
 		
 		> li { 
 				float: left; 
@@ -108,7 +108,7 @@
 		text-transform: uppercase;
 		border: medium none;
 		box-shadow: none;
-		background: url("../img/btn-cart.jpg") repeat-x scroll left bottom #FCFCFC;
+		background: url("../images/btn-cart.jpg") repeat-x scroll left bottom #FCFCFC;
 		
 		&:hover  {opacity: 0.8}
 }
@@ -117,33 +117,35 @@
 			 Tabs info
 --------------------------------*/	
 .tabs-info {
-		margin: 2%;
-		clear: both;
+	margin: 2%;
+	clear: both;
     
     .info-tabs {
-			  width: 100%;
-			  display: table;
-			  margin: 0;
-		    border-bottom: 1px solid #eee;
+		width: 100%;
+		display: table;
+		margin: 0;
+		border-bottom: 1px solid #eee;
 		    
-		    > li {
-					  float:left;
-					  color:#8b8a8a; 
-					  font-size: 13px;
-					  font-family: "oswaldbook";
-					  padding: 10px;
-					  list-style:none;
-		  		  margin-right: -1px;
-		  		  margin-bottom: -1px;
-		  		  text-transform:uppercase;
-		  		  border-radius:0;
-		  		  border: 1px solid #eee;
-		  		  background: #F9F9F9;
-        	
-        		a {color: #8b8a8a;}
-        }
-        &.active {padding: 2%; border-bottom: 1px solid #fff; background: #fff;}
+		> li {
+			float:left;
+			color:#8b8a8a; 
+			font-size: 13px;
+			font-family: "oswaldbook";
+			padding: 10px;
+			list-style:none;
+			margin-right: -1px;
+			margin-bottom: -1px;
+			text-transform:uppercase;
+			border-radius:0;
+			border: 1px solid #eee;
+			background: #F9F9F9;
+	
+			a {color: #8b8a8a;}
 		}
+
+        &.active {padding: 2%; border-bottom: 1px solid #fff; background: #fff;}
+	}
+
     .tab-content {
 				padding: 10px;
 		  	overflow: auto;

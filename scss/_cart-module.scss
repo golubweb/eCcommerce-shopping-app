@@ -14,7 +14,7 @@
 	    text-shadow: 1px 2px 2px #000;
 	    text-transform: uppercase;
 	    border-bottom: 1px solid #000;
-	    background: url(../img/nav-bg.jpg) top right repeat-x #3f3e3e;
+	    background: url(../images/nav-bg.jpg) top right repeat-x #3f3e3e;
 	}	
 	  
 	.aside-modul {margin-top: 0;}
@@ -53,7 +53,7 @@
 		    cursor: pointer;
 		    line-height: 10px;
 		    text-align: center;
-	        background: url(../img/close.png) top left no-repeat; 
+	        background: url(../images/close.png) top left no-repeat; 
 	  			
   			&:hover { text-indent: -5000px; opacity: 0.8;}
   			&:focus {text-indent: none;}
@@ -108,7 +108,7 @@
 	        line-height: normal;
 	        text-transform: uppercase;
 	        border: medium none;
-	        background: url("../img/btn-sub.jpg") repeat-x left bottom #FCFCFC;
+	        background: url("../images/btn-sub.jpg") repeat-x left bottom #FCFCFC;
        
         	&:hover {color:#fff; opacity: 0.8;}
 		}

@@ -40,7 +40,7 @@ footer {
   				    height: 45px;
   				    display: block;
 			        float: left;
-			        background: url(../img/mobipro-footer.png) top left no-repeat;
+			        background: url(../images/mobipro-footer.png) top left no-repeat;
 				}			
 				&:hover {opacity: 0.8;}
 		   	}
@@ -61,12 +61,12 @@ footer {
 						height: 29px;
 						float: left;
 						padding: 0 !important;
-						background: url(../img/facebook.jpg) top left no-repeat;
+						background: url(../images/facebook.jpg) top left no-repeat;
 												
 						 &:hover {opacity: 0.8;}
 					}
-					&+li a {background: url(../img/twitter.jpg) top left no-repeat;}
-					&+li+li a {background: url(../img/rrs.jpg) top left no-repeat;}
+					&+li a {background: url(../images/twitter.jpg) top left no-repeat;}
+					&+li+li a {background: url(../images/rrs.jpg) top left no-repeat;}
 				}
 			}
 		   			 

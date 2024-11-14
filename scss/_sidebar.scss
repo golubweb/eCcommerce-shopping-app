@@ -16,7 +16,7 @@ aside {
 			text-align: left;
 			text-shadow:1px 2px 2px #000;
 			border-bottom:1px solid #000;
-			background: url(../img/nav-bg.jpg) top right repeat-x #3f3e3e ;
+			background: url(../images/nav-bg.jpg) top right repeat-x #3f3e3e ;
 	  	}
 		  	
 	  	ul {
@@ -35,9 +35,9 @@ aside {
 					font-size: 15px;
 					padding: 10px 12px 12px 37px;
 					text-decoration: none;
-					background: url(../img/menu-aside.png) top left no-repeat;
+					background: url(../images/menu-aside.png) top left no-repeat;
 					
-					&:hover {color:#c3da55; background: url(../img/menu-aside-hov.png) top left no-repeat ;}
+					&:hover {color:#c3da55; background: url(../images/menu-aside-hov.png) top left no-repeat ;}
 				}
 
 				&:last-child {margin-bottom: 0;}
@@ -67,7 +67,7 @@ aside {
 				    box-shadow: none;
 				    border-radius: 0px;
 				    border: 1px solid #444545;
-				    background: url(../img/search-bg.jpg) top left repeat-x; 
+				    background: url(../images/search-bg.jpg) top left repeat-x; 
 		      	} 
 			}
 
@@ -87,7 +87,7 @@ aside {
  			    custom: pointer;
  			    text-transform: uppercase;
  			    border: none;
- 			    background: url(../img/submit-form.jpg) top left repeat-x;
+ 			    background: url(../images/submit-form.jpg) top left repeat-x;
  			   
  			    &:hover {opacity: 0.8;}   
 		    }
@@ -161,7 +161,7 @@ aside {
 			border-top: 1px solid #dfdfdf;
 		    border-bottom: 1px solid #dfdfdf;
 		    text-shadow: 1px 2px 3px #FFFFFF;
-		    background: url(../img/banner-login.png) bottom left;
+		    background: url(../images/banner-login.png) bottom left;
 		    background-repeat: 50% 50%;
 		    
 			a { 
@@ -176,7 +176,7 @@ aside {
 		a {display:block;
 			img {
 				width:100%;
-				background: url(../img/banner-ogl.jpg) bottom left no-repeat #fff;
+				background: url(../images/banner-ogl.jpg) bottom left no-repeat #fff;
 			}
 		}
     }
