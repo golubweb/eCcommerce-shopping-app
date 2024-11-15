@@ -1,0 +1,26 @@
+{
+  "name": "mobipro",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/mobipro/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "mobipro:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "mobipro:build:development"
+        },
+        "production": {
+          "buildTarget": "mobipro:build:production"
+        }
+      }
+    }
+  }
+}
