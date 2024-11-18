@@ -1,9 +1,9 @@
-import { Injectable }  from '@nestjs/common';
+import { HttpException, Injectable }  from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model }       from 'mongoose';
 
 import { CreateUserDto } from './dto/CreateUser.dto';
-import { User }          from '../schemas/User.schema';
+import { User }          from '../schemas/users/User.schema';
 
 @Injectable()
 export class UsersService {
@@ -12,6 +12,14 @@ export class UsersService {
     ) {}
 
     async createUser(_createUserDto: CreateUserDto) {
+        const { email, name, lastname } = _createUserDto;
+
+        let findUser = await this._userModel.findOne({ name, lastname, email });
+
+        if (findUser) {
+            throw new HttpException('User already exists', 404);
+        }
+
         const user = new this._userModel(_createUserDto);
         
         console.log('Service: createUser', user);

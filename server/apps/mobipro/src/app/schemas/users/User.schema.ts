@@ -1,7 +1,7 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
 import mongoose from "mongoose";
 
-import { ERole } from '../../../../../shared/enums/role.enum';
+import { ERole } from '../../../../../../shared/enums/role.enum';
 
 @Schema({
     timestamps: true

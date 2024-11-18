@@ -12,6 +12,11 @@ async function bootstrap() {
   app.use(helmet());
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix(globalPrefix);
+  /*app.enableCors({
+    origin:  'http://localhost:3000/mobipro/api',
+    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+    allowedHeaders: 'Content-Type, Accept',
+  })*/
 
   await app.listen(process.env.PORT || 3000);
 
