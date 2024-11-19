@@ -20,4 +20,8 @@ export class ProductsService {
 
         return newProduct.save();
     }
+
+    async getAllProducts() {
+        return this._productsModel.find();
+    }
 }

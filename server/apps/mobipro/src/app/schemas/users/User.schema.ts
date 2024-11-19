@@ -1,7 +1,7 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
 import mongoose from "mongoose";
 
-import { ERole } from '../../../../../../shared/enums/role.enum';
+import { ERoles } from '../../../../../../shared/enums/role.enum';
 
 @Schema({
     timestamps: true
@@ -30,8 +30,8 @@ export class User extends mongoose.Document {
     @Prop({ required: false })                                                    
     avatarUrl?: string;
 
-    @Prop({ type: [{ type: String, enum: ERole }], default: [ ERole.user ] }) 
-    role:  ERole[];
+    @Prop({ type: [{ type: String, enum: ERoles }], default: [ ERoles.user ] }) 
+    role:  ERoles[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -34,6 +34,18 @@ export class Products extends mongoose.Document {
 
     @Prop({ default: null })
     brand?: string;
+
+    @Prop({ default: false })
+    onDiscount?: boolean;
+
+    @Prop({ default: false })
+    isPopular?: boolean;
+
+    @Prop({ default: false })
+    isNewProduct: boolean;
+
+    @Prop({ default: null })
+    whoCreated?: string;
 }
 
 export const ProductsSchema = SchemaFactory.createForClass(Products);

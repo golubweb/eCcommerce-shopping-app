@@ -6,12 +6,12 @@ import { AppModule }      from './app/app.module';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app      = await NestFactory.create(AppModule),
-    globalPrefix = 'mobipro/api';
+  const app = await NestFactory.create(AppModule);
 
   app.use(helmet());
   app.useGlobalPipes(new ValidationPipe());
-  app.setGlobalPrefix(globalPrefix);
+  app.setGlobalPrefix(process.env.GLOBAL_PREFIX);
+
   /*app.enableCors({
     origin:  'http://localhost:3000/mobipro/api',
     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
@@ -20,7 +20,7 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT || 3000);
 
-  Logger.log(`http://localhost:${process.env.PORT || 3000}/${globalPrefix}`);
+  Logger.log(`http://localhost:${process.env.PORT || 3000}/${process.env.GLOBAL_PREFIX}`);
 }
 
 bootstrap();
