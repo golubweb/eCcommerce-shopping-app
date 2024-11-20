@@ -5,50 +5,59 @@ import { Model }       from "mongoose";
 
 import * as bcrypt from 'bcryptjs';
 
-import { LoginUserDto }  from "./dto/login.dto";
-import { CreateUserDto } from "./dto/signupUser.dto";
+import { LoginUserDto }  from "./dtos/login.dto";
+import { CreateUserDto } from "./dtos/signupUser.dto";
 import { User }          from "../schemas/users/User.schema";
+import { UserContact } from "../schemas/users/UserContact.schema";
 
 @Injectable()
 export class AuthService {
     constructor(
         private _jwtService: JwtService,
-        @InjectModel(User.name) private _userModel: Model<User>
+        @InjectModel(User.name)        private _userModel:        Model<User>,
+        @InjectModel(UserContact.name) private _userContactModel: Model<UserContact>
     ) {}
 
     async loginUser(_loginUserDto: LoginUserDto) {
         return 'Login user';
     }
 
-    async createUser(_createUserDto: CreateUserDto) {
+    async createUser({ contact, ..._createUserDto }: CreateUserDto) {
         const { email, name, lastname, password } = _createUserDto;
 
         let findUser      = await this._userModel.findOne({ name, lastname, email }),
             hasedPassword = await bcrypt.hash(password, 10);
 
         if (findUser) {
-            throw new HttpException('User already exists', 404);
+            throw new HttpException({
+                error:    true,
+                message:  'User already exists',
+                userData: null,
+                token:    null
+            }, 404);
         }
 
-        const newUser = await this._userModel.create({
-            ..._createUserDto,
-            isNewUser: true,
-            password: hasedPassword
+        const newUserContact = await new this._userContactModel(contact).save(),
+              newUser        = await this._userModel.create({ ..._createUserDto, contact: newUserContact._id }).then((_userData: any) => {
+            _userData = _userData.toObject();
+            
+            delete _userData.password;
+            //delete _userData._id;
+            delete _userData.isActive;
+            delete _userData.createdAt;
+            delete _userData.updatedAt;
+            delete _userData.__v;
+
+            return _userData;
         });
 
-        let token       = this._jwtService.sign({ id: newUser._id }),
-            resUserData = newUser.toObject();
-
-        delete resUserData.password;
-        delete resUserData._id;
-        delete resUserData.isActive;
-        
-        console.log('Service: createUser', newUser);
+        const populatedUser = await this._userModel.findById(newUser._id).populate('contact');
 
         return {
-            message: 'User created successfully', 
-            user:    resUserData,
-            token:   token
+            error:    false,
+            message:  'User created successfully', 
+            userData: populatedUser,
+            token:    this._jwtService.sign({ id: newUser._id })
         };
     }
 }

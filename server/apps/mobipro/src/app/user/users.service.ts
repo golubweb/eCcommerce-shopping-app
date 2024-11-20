@@ -3,7 +3,7 @@ import { InjectModel }               from '@nestjs/mongoose';
 import { JwtService }                from "@nestjs/jwt";
 import { Model }                     from 'mongoose';
 
-import { CreateUserDto } from '../authorization/dto/signupUser.dto';
+import { CreateUserDto } from '../authorization/dtos/signupUser.dto';
 import { User }          from '../schemas/users/User.schema';
 
 @Injectable()

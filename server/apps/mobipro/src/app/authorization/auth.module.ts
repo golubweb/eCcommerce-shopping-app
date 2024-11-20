@@ -1,14 +1,16 @@
-import { Module }                from "@nestjs/common";
-import { MongooseModule }        from '@nestjs/mongoose';
-import { PassportModule }        from '@nestjs/passport';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { Module }                      from "@nestjs/common";
+import { MongooseModule }              from '@nestjs/mongoose';
+import { PassportModule }              from '@nestjs/passport';
+import { JwtModule }                   from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AuthService }    from "./auth.service";
 import { AuthController } from "./auth.controller";
 
-import { UserSchema }  from "../schemas/users/User.schema";
 import { JwtStrategy } from "./jwt/jwt.strategy";
+
+import { UserSchema }        from "../schemas/users/User.schema";
+import { UserContactSchema } from "../schemas/users/UserContact.schema";
 
 @Module({
     imports:     [
@@ -16,19 +18,17 @@ import { JwtStrategy } from "./jwt/jwt.strategy";
         PassportModule.register({ defaultStrategy: 'jwt' }),
         JwtModule.registerAsync({
             imports: [ ConfigModule ],
-            useFactory: async (configService: ConfigService) => {
-                const secret = configService.get<string>('JWT_SECRET');
-                console.log('JWT_SECRET_AUTH_MODULES:', secret); // Logovanje za proveru
-
-                return {
-                  secret,
-                  signOptions: { expiresIn: '60s' },
-                };
-            },
+            useFactory: async (configService: ConfigService) => ({
+                secret:      configService.get<string>('JWT_SECRET'),
+                signOptions: { 
+                    expiresIn: configService.get<string>('JWT_EXPIRES')
+                }
+            }),
             inject: [ ConfigService ]
         }),
         MongooseModule.forFeature([
-            { name: 'User', schema: UserSchema }
+            { name: 'User',        schema: UserSchema },
+            { name: 'UserContact', schema: UserContactSchema }
         ])
     ],
     controllers: [ AuthController],
