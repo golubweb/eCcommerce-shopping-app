@@ -8,7 +8,7 @@ import * as bcrypt from 'bcryptjs';
 import { LoginUserDto }  from "./dtos/login.dto";
 import { CreateUserDto } from "./dtos/signupUser.dto";
 import { User }          from "../schemas/users/User.schema";
-import { UserContact } from "../schemas/users/UserContact.schema";
+import { UserContact }   from "../schemas/users/UserContact.schema";
 
 @Injectable()
 export class AuthService {
@@ -37,27 +37,31 @@ export class AuthService {
             }, 404);
         }
 
-        const newUserContact = await new this._userContactModel(contact).save(),
-              newUser        = await this._userModel.create({ ..._createUserDto, contact: newUserContact._id }).then((_userData: any) => {
-            _userData = _userData.toObject();
-            
-            delete _userData.password;
-            //delete _userData._id;
-            delete _userData.isActive;
-            delete _userData.createdAt;
-            delete _userData.updatedAt;
-            delete _userData.__v;
+        let newUserContact = await new this._userContactModel(contact).save(),
+            newUser        = await this._userModel.create({ ..._createUserDto, password: hasedPassword, contact: newUserContact._id });
 
-            return _userData;
-        });
+        let token         = this._jwtService.sign({ id: newUser._id }),
+            populatedUser = await this._userModel.findById(newUser._id).populate('contact').then((_populatedUser: any) => {
+                _populatedUser = _populatedUser.toObject();
 
-        const populatedUser = await this._userModel.findById(newUser._id).populate('contact');
+                delete _populatedUser._id;
+                delete _populatedUser.password;
+                delete _populatedUser.createdAt;
+                delete _populatedUser.updatedAt;
+                delete _populatedUser.__v;
+                delete _populatedUser.contact._id;
+                delete _populatedUser.contact.__v;
+
+                return _populatedUser;
+            });
+
+        console.log('populatedUser: ', populatedUser);
 
         return {
             error:    false,
             message:  'User created successfully', 
             userData: populatedUser,
-            token:    this._jwtService.sign({ id: newUser._id })
+            token:    token
         };
     }
 }
