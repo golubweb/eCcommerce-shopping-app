@@ -1,4 +1,4 @@
-import { HttpException, Injectable }  from "@nestjs/common";
+import { HttpException, Injectable, UnauthorizedException }  from "@nestjs/common";
 import { InjectModel } from '@nestjs/mongoose';
 import { JwtService }  from "@nestjs/jwt";
 import { Model }       from "mongoose";
@@ -19,49 +19,83 @@ export class AuthService {
     ) {}
 
     async loginUser(_loginUserDto: LoginUserDto) {
-        return 'Login user';
+        const { email, password } = _loginUserDto;
+
+        const findUser = await this._userModel.findOne({ email }).populate('contact');
+
+        if (!findUser) {
+            throw new UnauthorizedException({
+                error:    false,
+                message:  `User not found, email: ${email}`,
+                userData: null,
+                token:    null
+            });
+        }
+
+        let isPasswordValid = await bcrypt.compare(password, findUser.password);
+
+        if (!isPasswordValid) {
+            throw new UnauthorizedException({
+                error:    false,
+                message:  `Invalid password, for user: ${email}`,
+                userData: null,
+                token:    null
+            });
+        }
+
+        return {
+            error:    false,
+            message:  `User created successfully, Welcome: ${findUser.displayName}`,
+            userData: findUser,
+            token:    (await this.generateUserToken(findUser._id.toString(), '2h')).accessToken
+        };
     }
 
     async createUser({ contact, ..._createUserDto }: CreateUserDto) {
-        const { email, name, lastname, password } = _createUserDto;
-
-        let findUser      = await this._userModel.findOne({ name, lastname, email }),
-            hasedPassword = await bcrypt.hash(password, 10);
+        let { email, password } = _createUserDto,
+            tokenID             = null,
+            findUser            = await this._userModel.findOne({ email }),
+            hasedPassword       = await bcrypt.hash(password, 10);
 
         if (findUser) {
             throw new HttpException({
                 error:    true,
-                message:  'User already exists',
+                message:  `User already exists, email: ${email}`,
                 userData: null,
                 token:    null
             }, 404);
         }
 
         let newUserContact = await new this._userContactModel(contact).save(),
-            newUser        = await this._userModel.create({ ..._createUserDto, password: hasedPassword, contact: newUserContact._id });
+            populatedUser  = await this._userModel.create({ ..._createUserDto, password: hasedPassword, contact: newUserContact._id }).then((_newUser: any) => {
+                tokenID = _newUser._id;
 
-        let token         = this._jwtService.sign({ id: newUser._id }),
-            populatedUser = await this._userModel.findById(newUser._id).populate('contact').then((_populatedUser: any) => {
-                _populatedUser = _populatedUser.toObject();
-
-                delete _populatedUser._id;
-                delete _populatedUser.password;
-                delete _populatedUser.createdAt;
-                delete _populatedUser.updatedAt;
-                delete _populatedUser.__v;
-                delete _populatedUser.contact._id;
-                delete _populatedUser.contact.__v;
-
-                return _populatedUser;
+                return this._userModel.findById(_newUser._id).populate('contact').then((_populatedUser: any) => {
+                    _populatedUser = _populatedUser.toObject();
+    
+                    delete _populatedUser._id;
+                    delete _populatedUser.password;
+                    delete _populatedUser.createdAt;
+                    delete _populatedUser.updatedAt;
+                    delete _populatedUser.__v;
+                    delete _populatedUser.contact._id;
+                    delete _populatedUser.contact.__v;
+    
+                    return _populatedUser;
+                });
             });
-
-        console.log('populatedUser: ', populatedUser);
 
         return {
             error:    false,
-            message:  'User created successfully', 
+            message:  `User created successfully, Welcome: ${_createUserDto.displayName}`,
             userData: populatedUser,
-            token:    token
+            token:    (await this.generateUserToken(tokenID, '2h')).accessToken
         };
+    }
+
+    async generateUserToken(_ID: string, _expireTime: string) {
+        const accessToken = this._jwtService.sign({ id: _ID }, { expiresIn: _expireTime || '1h' });
+
+        return { accessToken };
     }
 }

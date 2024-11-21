@@ -1,8 +1,11 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
+import { IsNotEmpty, IsString, Matches, MinLength } from "class-validator";
+
+import { ValidationRegister } from "../../../../../../shared/middleware/register/validation.register";
+import { registerMessages }   from "../../../../../../shared/middleware/register/validator-messages";
 
 export class LoginUserDto {
     @IsNotEmpty()
-    @IsEmail({}, { message: 'Invalid email' })
+    @Matches(ValidationRegister.email, { message: registerMessages.email })
     email: string;
 
     @IsNotEmpty()

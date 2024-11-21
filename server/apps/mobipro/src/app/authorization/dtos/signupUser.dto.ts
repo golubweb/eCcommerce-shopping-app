@@ -1,6 +1,9 @@
-import { IsBoolean, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, MinLength, ValidateNested } from "class-validator";
-import { IsEqualTo } from "../../../../../../shared/middleware/match.password.decorator";
-import { ERoles }    from "shared/enums/role.enum";
+import { IsBoolean, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, MinLength } from "class-validator";
+
+import { ValidationRegister } from "../../../../../../shared/middleware/register/validation.register";
+import { registerMessages }   from "../../../../../../shared/middleware/register/validator-messages";
+import { IsEqualTo }          from "../../../../../../shared/middleware/decorators/match.password.decorator";
+import { ERoles }             from "../../../../../../shared/enums/role.enum";
 
 export class CreateUserContactDto {
     @IsNotEmpty()
@@ -57,7 +60,7 @@ export class CreateUserDto {
     @IsNotEmpty()
     @MinLength(4)
     @MaxLength(20)
-    @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, { message: 'password too weak' })
+    @Matches(ValidationRegister.password, { message: registerMessages.password })
     password: string;
 
     @IsNotEmpty()
