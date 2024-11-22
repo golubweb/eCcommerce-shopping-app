@@ -9,8 +9,9 @@ import { AuthController } from "./auth.controller";
 
 import { JwtStrategy } from "./jwt/jwt.strategy";
 
-import { UserSchema }        from "../schemas/users/User.schema";
-import { UserContactSchema } from "../schemas/users/UserContact.schema";
+import { UserSchema }         from "../schemas/users/User.schema";
+import { UserContactSchema }  from "../schemas/users/UserContact.schema";
+import { RefreshTokenSchema } from "../schemas/auth/refresh-token.schema";
 
 @Module({
     imports:     [
@@ -24,8 +25,9 @@ import { UserContactSchema } from "../schemas/users/UserContact.schema";
             inject: [ ConfigService ]
         }),
         MongooseModule.forFeature([
-            { name: 'User',        schema: UserSchema },
-            { name: 'UserContact', schema: UserContactSchema }
+            { name: 'User',         schema: UserSchema },
+            { name: 'UserContact',  schema: UserContactSchema },
+            { name: 'RefreshToken', schema: RefreshTokenSchema }
         ])
     ],
     controllers: [ AuthController],

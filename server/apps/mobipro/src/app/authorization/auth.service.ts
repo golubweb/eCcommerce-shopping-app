@@ -1,21 +1,25 @@
 import { HttpException, Injectable, UnauthorizedException }  from "@nestjs/common";
-import { InjectModel } from '@nestjs/mongoose';
-import { JwtService }  from "@nestjs/jwt";
-import { Model }       from "mongoose";
+import { InjectModel }  from '@nestjs/mongoose';
+import { JwtService }   from "@nestjs/jwt";
+import { Model }        from "mongoose";
+//import { v4 as uuidv4 } from 'uuid';
 
 import * as bcrypt from 'bcryptjs';
 
 import { LoginUserDto }  from "./dtos/login.dto";
 import { CreateUserDto } from "./dtos/signupUser.dto";
+
 import { User }          from "../schemas/users/User.schema";
 import { UserContact }   from "../schemas/users/UserContact.schema";
+import { RefreshToken }  from "../schemas/auth/refresh-token.schema";
 
 @Injectable()
 export class AuthService {
     constructor(
         private _jwtService: JwtService,
-        @InjectModel(User.name)        private _userModel:        Model<User>,
-        @InjectModel(UserContact.name) private _userContactModel: Model<UserContact>
+        @InjectModel(User.name)         private _userModel:         Model<User>,
+        @InjectModel(UserContact.name)  private _userContactModel:  Model<UserContact>,
+        @InjectModel(RefreshToken.name) private _refreshTokenModel: Model<RefreshToken>
     ) {}
 
     async loginUser(_loginUserDto: LoginUserDto) {
@@ -91,6 +95,10 @@ export class AuthService {
             userData: populatedUser,
             token:    (await this.generateUserToken(tokenID, '2h')).accessToken
         };
+    }
+
+    async getRefreshToken(_token: string) {
+        //const refreshToken = uuidv4();
     }
 
     async generateUserToken(_ID: string, _expireTime: string) {
