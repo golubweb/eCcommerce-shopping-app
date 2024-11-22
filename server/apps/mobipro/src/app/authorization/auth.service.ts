@@ -145,7 +145,7 @@ export class AuthService {
             });
         }
 
-        let tokenData = await this.generateUserToken(findToken.userId, '2h', findToken.token);
+        let tokenData = await this.generateUserToken(findToken.userId, '2h');
 
         return {
             accessToken:  tokenData.accessToken,
@@ -161,7 +161,14 @@ export class AuthService {
         let expiryDate = new Date();
             expiryDate.setDate(expiryDate.getDate() + 3);
 
-        await this._refreshTokenModel.create({ token: _token, userId: _userID, expiryDate: expiryDate });
+        await this._refreshTokenModel.updateOne(
+            { userId: _userID }, 
+            {
+                token:      _token,
+                expiryDate: expiryDate
+            }, 
+            { upsert: true }
+        );
     }
 
     async generateUserToken(_userID: string, _expireTime: string, _refreshToken?: string) {
