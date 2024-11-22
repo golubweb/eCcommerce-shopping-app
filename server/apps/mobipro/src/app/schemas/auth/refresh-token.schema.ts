@@ -10,7 +10,7 @@ export class RefreshToken extends Document {
     @Prop({ required: true })
     token: string;
 
-    @Prop({ required: true, type: mongoose.Schema.Types.ObjectId })
+    @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
     userId: string;
 
     @Prop({ required: true })

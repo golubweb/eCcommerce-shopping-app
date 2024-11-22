@@ -2,12 +2,13 @@ import { HttpException, Injectable, UnauthorizedException }  from "@nestjs/commo
 import { InjectModel }  from '@nestjs/mongoose';
 import { JwtService }   from "@nestjs/jwt";
 import { Model }        from "mongoose";
-//import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 import * as bcrypt from 'bcryptjs';
 
-import { LoginUserDto }  from "./dtos/login.dto";
-import { CreateUserDto } from "./dtos/signupUser.dto";
+import { LoginUserDto }    from "./dtos/login.dto";
+import { CreateUserDto }   from "./dtos/signupUser.dto";
+import { RefreshTokenDto } from "./dtos/refresh-token.dto";
 
 import { User }          from "../schemas/users/User.schema";
 import { UserContact }   from "../schemas/users/UserContact.schema";
@@ -29,14 +30,18 @@ export class AuthService {
 
         if (!findUser) {
             throw new UnauthorizedException({
-                error:    false,
-                message:  `User not found, email: ${email}`,
-                userData: null,
-                token:    null
+                error:           false,
+                message:         `User not found, email: ${email}`,
+                userData:        null,
+                token:           null,
+                getRefreshToken: null
             });
+
         }
 
-        let isPasswordValid = await bcrypt.compare(password, findUser.password);
+        let tokenData       = { accessToken: null, refreshToken: null },
+            checkToken      = await this._refreshTokenModel.findOne({ userId: findUser._id }),
+            isPasswordValid = await bcrypt.compare(password, findUser.password);
 
         if (!isPasswordValid) {
             throw new UnauthorizedException({
@@ -46,12 +51,34 @@ export class AuthService {
                 token:    null
             });
         }
+        
+        let userData = findUser.toObject() as any;
+
+        if (userData) {
+            delete userData._id;
+            delete userData.password;
+            delete userData.__v;
+
+            if (userData.contact) {
+                delete userData.contact._id;
+                delete userData.contact.__v;
+            }
+        }
+
+        if (checkToken) {
+            tokenData.refreshToken = checkToken.token;
+            tokenData.accessToken  = (await this.generateUserToken(findUser._id.toString(), '2h', checkToken.token)).accessToken;
+
+        } else {
+            tokenData = await this.generateUserToken(findUser._id.toString(), '2h');
+        }
 
         return {
-            error:    false,
-            message:  `User created successfully, Welcome: ${findUser.displayName}`,
-            userData: findUser,
-            token:    (await this.generateUserToken(findUser._id.toString(), '2h')).accessToken
+            error:        false,
+            message:      `User created successfully, Welcome: ${userData.displayName}`,
+            userData:     userData,
+            token:        tokenData.accessToken,
+            refreshToken: tokenData.refreshToken
         };
     }
 
@@ -63,10 +90,11 @@ export class AuthService {
 
         if (findUser) {
             throw new HttpException({
-                error:    true,
-                message:  `User already exists, email: ${email}`,
-                userData: null,
-                token:    null
+                error:        true,
+                message:      `User already exists, email: ${email}`,
+                userData:     null,
+                token:        null,
+                refreshToken: null
             }, 404);
         }
 
@@ -89,21 +117,58 @@ export class AuthService {
                 });
             });
 
+        let tokenData = await this.generateUserToken(tokenID, '2h');
+
         return {
-            error:    false,
-            message:  `User created successfully, Welcome: ${_createUserDto.displayName}`,
-            userData: populatedUser,
-            token:    (await this.generateUserToken(tokenID, '2h')).accessToken
+            error:        false,
+            message:      `User created successfully, Welcome: ${_createUserDto.displayName}`,
+            userData:     populatedUser,
+            token:        tokenData.accessToken,
+            refreshToken: tokenData.refreshToken
         };
     }
 
-    async getRefreshToken(_token: string) {
-        //const refreshToken = uuidv4();
+    async refreshToken(_tokenData: RefreshTokenDto) {
+        const findToken = await this._refreshTokenModel.findOneAndDelete({
+            token:      _tokenData.refreshToken,
+            expiryDate: { $gte: new Date() }
+        });
+
+        if (!findToken) {
+            throw new UnauthorizedException({
+                error:        false,
+                message:      `Invalid refresh token`,
+                token:        null,
+                userData:     null,
+                refreshToken: null
+            });
+        }
+
+        return {
+            refreshToken: (await this.generateUserToken(findToken.userId, '2h')).refreshToken
+        }
     }
 
-    async generateUserToken(_ID: string, _expireTime: string) {
-        const accessToken = this._jwtService.sign({ id: _ID }, { expiresIn: _expireTime || '1h' });
+    async getRefreshToken() {
+        return uuidv4();
+    }
 
-        return { accessToken };
+    async storeRefreshToken(_token: string, _userID: string) {
+        let expiryDate = new Date();
+            expiryDate.setDate(expiryDate.getDate() + 3);
+
+        await this._refreshTokenModel.create({ token: _token, userId: _userID, expiryDate: expiryDate });
+    }
+
+    async generateUserToken(_userID: string, _expireTime: string, _refreshToken?: string) {
+        const accessToken  = await this._jwtService.sign({ id: _userID }, { expiresIn: _expireTime || '1h' }),
+              refreshToken = (!_refreshToken) ? await this.getRefreshToken() : _refreshToken;
+
+        if (!_refreshToken) this.storeRefreshToken(refreshToken, _userID);
+
+        return {
+            accessToken:  accessToken,
+            refreshToken: refreshToken
+        }
     }
 }
