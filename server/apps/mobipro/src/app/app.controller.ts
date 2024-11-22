@@ -1,12 +1,16 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+
+import { AppService }    from './app.service';
+import { AuthGuardUser } from './guards/auth.guard';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getData() {
-    return this.appService.getData();
+  @UseGuards(AuthGuardUser)
+  getData(@Req() _request) {
+    return { message: 'Accessed Resource', userId: _request.id };
   }
 }

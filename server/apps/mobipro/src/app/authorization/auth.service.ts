@@ -13,6 +13,7 @@ import { RefreshTokenDto } from "./dtos/refresh-token.dto";
 import { User }          from "../schemas/users/User.schema";
 import { UserContact }   from "../schemas/users/UserContact.schema";
 import { RefreshToken }  from "../schemas/auth/refresh-token.schema";
+import { access } from "fs";
 
 @Injectable()
 export class AuthService {
@@ -129,7 +130,7 @@ export class AuthService {
     }
 
     async refreshToken(_tokenData: RefreshTokenDto) {
-        const findToken = await this._refreshTokenModel.findOneAndDelete({
+        const findToken = await this._refreshTokenModel.findOne({
             token:      _tokenData.refreshToken,
             expiryDate: { $gte: new Date() }
         });
@@ -144,8 +145,11 @@ export class AuthService {
             });
         }
 
+        let tokenData = await this.generateUserToken(findToken.userId, '2h', findToken.token);
+
         return {
-            refreshToken: (await this.generateUserToken(findToken.userId, '2h')).refreshToken
+            accessToken:  tokenData.accessToken,
+            refreshToken: tokenData.refreshToken
         }
     }
 

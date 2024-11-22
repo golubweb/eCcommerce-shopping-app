@@ -14,7 +14,9 @@ export class UsersService {
     ) {}
 
     async findAll() {
-        return `This action returns all users`;
+        const users = await this._userModel.find();
+
+        return users;
     }
 
     async findOne(id: number) {

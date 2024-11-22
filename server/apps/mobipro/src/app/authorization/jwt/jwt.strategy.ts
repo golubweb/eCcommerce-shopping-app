@@ -22,9 +22,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         })
     }
 
-    async validate(payload: any) {
+    async validate(payload: { id: string }) {
         const { id } = payload;
-        const user = await this._userModel.findOne(id);
+
+        console.log('Payload: ', id);
+
+        const user = await this._userModel.findOne({ _id: id });
 
         console.log('Ima li user: ', user);
 
