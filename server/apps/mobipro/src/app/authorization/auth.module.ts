@@ -4,14 +4,14 @@ import { PassportModule }              from '@nestjs/passport';
 import { JwtModule }                   from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { AuthService }    from "./auth.service";
-import { AuthController } from "./auth.controller";
+import { AuthService }    from "./services/auth.service";
+import { AuthController } from "./controllers/auth.controller";
 
 import { JwtStrategy } from "./jwt/jwt.strategy";
 
-import { UserSchema }         from "../schemas/users/User.schema";
-import { UserContactSchema }  from "../schemas/users/UserContact.schema";
-import { RefreshTokenSchema } from "../schemas/auth/refresh-token.schema";
+import { User, UserSchema }                 from "../schemas/users/User.schema";
+import { UserContact, UserContactSchema }   from "../schemas/users/UserContact.schema";
+import { RefreshToken, RefreshTokenSchema } from "../schemas/auth/refresh-token.schema";
 
 @Module({
     imports:     [
@@ -25,9 +25,9 @@ import { RefreshTokenSchema } from "../schemas/auth/refresh-token.schema";
             inject: [ ConfigService ]
         }),
         MongooseModule.forFeature([
-            { name: 'User',         schema: UserSchema },
-            { name: 'UserContact',  schema: UserContactSchema },
-            { name: 'RefreshToken', schema: RefreshTokenSchema }
+            { name: User.name,         schema: UserSchema },
+            { name: UserContact.name,  schema: UserContactSchema },
+            { name: RefreshToken.name, schema: RefreshTokenSchema }
         ])
     ],
     controllers: [ AuthController],

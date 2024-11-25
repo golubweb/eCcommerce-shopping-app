@@ -6,14 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 import * as bcrypt from 'bcryptjs';
 
-import { LoginUserDto }    from "./dtos/login.dto";
-import { CreateUserDto }   from "./dtos/signupUser.dto";
-import { RefreshTokenDto } from "./dtos/refresh-token.dto";
+import { LoginUserDto }    from "../dtos/login.dto";
+import { CreateUserDto }   from "../dtos/signupUser.dto";
+import { RefreshTokenDto } from "../dtos/refresh-token.dto";
 
-import { User }          from "../schemas/users/User.schema";
-import { UserContact }   from "../schemas/users/UserContact.schema";
-import { RefreshToken }  from "../schemas/auth/refresh-token.schema";
-import { access } from "fs";
+import { User }          from "../../schemas/users/User.schema";
+import { UserContact }   from "../../schemas/users/UserContact.schema";
+import { RefreshToken }  from "../../schemas/auth/refresh-token.schema";
 
 @Injectable()
 export class AuthService {

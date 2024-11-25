@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from "@nestjs/common";
 import { Throttle } from "@nestjs/throttler";
 
-import { CreateProductDto } from "./dto/CreateProduct.dto";
-import { ProductsService }  from "./products.service";
+import { CreateProductDto } from "../dto/CreateProduct.dto";
+import { ProductsService }  from "../services/products.service";
 
 @Controller('products')
 export class ProductsController {

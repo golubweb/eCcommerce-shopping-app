@@ -1,3 +1,5 @@
+import { send } from "process";
+
 export default () => ({
     mongoDB: {
         username:  process.env.MONGO_USER,
@@ -5,13 +7,14 @@ export default () => ({
         host:      process.env.MONGO_HOST,
         database:  process.env.MONGO_DATABASE_NAME
     },
-    nodemailer: {
-        host: "smtp.mailtrap.io",
-        port: 2525,
+    mailer: {
+        host: process.env.EMAIL_HOST,
+        port: process.env.EMAIL_PORT,
         auth: {
-            user: "be610429300188",
-            pass: "f41be224caab1e"
-        }
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        },
+        sender: process.env.EMAIL_SENDER
     }
 });
 

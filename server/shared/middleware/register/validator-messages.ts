@@ -9,5 +9,6 @@ export const registerMessages: { [key: string]: string } = {
     password:    'Password has to have at least 8 characters, one upper case letter and at least one number',
     content:     'Message must be between 10 and 140 characters',
     newsletters: 'Email is not valid',
-    string:      'The parameter must be a string'
+    string:      'The parameter must be a string',
+    passwordNotEqual: 'New password must be different from the old one'
 };

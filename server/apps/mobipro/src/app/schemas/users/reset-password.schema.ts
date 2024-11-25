@@ -1,11 +1,11 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Document } from "mongoose";
 
+
 @Schema({
-    versionKey: false,
     timestamps: true
 })
-export class RefreshToken extends Document {
+export class ResetPaswordToken extends mongoose.Document {
     @Prop({ required: true })
     token: string;
 
@@ -16,4 +16,4 @@ export class RefreshToken extends Document {
     expiryDate: Date;
 }
 
-export const RefreshTokenSchema = SchemaFactory.createForClass(RefreshToken);
+export const ResetPasswordTokenSchema = SchemaFactory.createForClass(ResetPaswordToken);

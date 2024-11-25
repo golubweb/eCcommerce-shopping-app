@@ -2,8 +2,8 @@ import { HttpException, Injectable }  from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model }       from "mongoose";
 
-import { CreateProductDto } from "./dto/CreateProduct.dto";
-import { Products }         from "../schemas/products/Products.schema";
+import { CreateProductDto } from "../dto/CreateProduct.dto";
+import { Products }         from "../../schemas/products/Products.schema";
 
 @Injectable()
 export class ProductsService {

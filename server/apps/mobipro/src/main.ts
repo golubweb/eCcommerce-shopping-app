@@ -18,9 +18,9 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Accept',
   })*/
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.API_PORT || 3000);
 
-  Logger.log(`http://localhost:${process.env.PORT || 3000}/${process.env.GLOBAL_PREFIX}`);
+  Logger.log(`http://localhost:${process.env.API_PORT || 3000}/${process.env.GLOBAL_PREFIX}`);
 }
 
 bootstrap();
