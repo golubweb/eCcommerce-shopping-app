@@ -23,6 +23,9 @@ import mailerConfig from "../mailer/config/mailer.config";
         MailerModule.forRootAsync({ useFactory: mailerConfig })
     ],
     providers:   [ UsersService, MailService ],
-    controllers: [ UsersController ]
+    controllers: [ UsersController ],
+    exports:     [ 
+        MongooseModule.forFeature([ { name: User.name, schema: UserSchema } ])
+    ]
 })
 export class UsersModule {}

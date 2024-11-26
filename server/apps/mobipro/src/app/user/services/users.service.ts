@@ -20,17 +20,21 @@ export class UsersService {
     ) {}
 
     async findAll() {
-        const users = await this._userModel.find();
-
-        return users;
+        return await this._userModel.find().select([ '-password', '-__v', '-createdAt', '-updatedAt' ]).populate({
+            path: 'contact',
+            select: '-mobile'
+        });
     }
 
-    async findOne(id: number) {
-        return `This action returns a #${id} user`;
+    async findOne(_id: number) {
+        return await this._userModel.findById(_id).select([ '-password', '-__v', '-createdAt', '-updatedAt', '-mobile' ]).populate({
+            path: 'contact',
+            select: '-mobile'
+        });
     }
 
-    async update(id: number, updateUserDto: CreateUserDto) {
-        return `This action updates a #${id} user`;
+    async update(_id: number, updateUserDto: CreateUserDto) {
+        return `This action updates a #${_id} user`;
     }
 
     async remove(id: number) {

@@ -1,4 +1,4 @@
-import { IsBoolean, IsEmail, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, Matches, MaxLength } from "class-validator";
+import { IsBoolean, IsEmail, IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Matches, MaxLength } from "class-validator";
 
 export class CreateProductDto {
     @IsNotEmpty()
@@ -31,10 +31,12 @@ export class CreateProductDto {
 
     @IsOptional()
     @IsNumber()
+    @IsInt()
     stock?: number;
 
     @IsOptional()
     @IsBoolean()
+    @IsInt()
     reviews?: number;
 
     @IsOptional()

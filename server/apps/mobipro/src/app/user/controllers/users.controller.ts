@@ -7,11 +7,15 @@ import { ChangePasswordDto } from "../dtos/change-password.dto";
 import { ForgotPasswordDto } from "../dtos/forgot-password.dto";
 import { ResetPasswordDto }  from "../dtos/reset-password.dto";
 
+import { Roles }  from "../../authorization/decorators/roles.decorator";
+import { ERoles } from "shared/enums/role.enum";
+
 @Controller('users')
 export class UsersController {
     constructor(private _usersService: UsersService) {}
 
     @Get('findAll')
+    @Roles(ERoles.user)
     @UseGuards(AuthGuardUser)
     async fetchUsers() {
         return this._usersService.findAll();
