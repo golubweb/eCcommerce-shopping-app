@@ -1,22 +1,24 @@
-import { Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model }       from 'mongoose';
 
 import * as bcrypt from 'bcryptjs';
 import { nanoid } from 'nanoid';
 
-import { CreateUserDto }     from '../../authorization/dtos/signupUser.dto';
 import { ChangePasswordDto } from '../dtos/change-password.dto';
 import { User }              from '../../schemas/users/User.schema';
 import { ResetPaswordToken } from '../../schemas/users/reset-password.schema';
 import { MailService }       from './mail.service';
+import { UpdateUserDto }     from '../dtos/update-user.dto';
+import { UserContact } from '../../schemas/users/UserContact.schema';
 
 @Injectable()
 export class UsersService {
     constructor(
         private _mailerService: MailService,
-        @InjectModel(User.name)              private _userModel:       Model<User>,
-        @InjectModel(ResetPaswordToken.name) private _resetTokenModel: Model<ResetPaswordToken>
+        @InjectModel(User.name)              private _userModel:        Model<User>,
+        @InjectModel(UserContact.name)       private _userContactModel: Model<UserContact>,
+        @InjectModel(ResetPaswordToken.name) private _resetTokenModel:  Model<ResetPaswordToken>
     ) {}
 
     async findAll() {
@@ -33,8 +35,20 @@ export class UsersService {
         });
     }
 
-    async update(_id: number, updateUserDto: CreateUserDto) {
-        return `This action updates a #${_id} user`;
+    async updateUserData(_userID: string, _updateUser: UpdateUserDto) {
+        let existingUser                    = await this._userModel.findOne({ email: _updateUser.email }),
+            { contact, ...updatedUserData } = _updateUser;
+
+        if (existingUser && existingUser._id.toString() !== _userID) {
+            throw new InternalServerErrorException({ error: true, message: 'Email already exists, not some user!' });
+        }
+
+        let findUser = await this._userModel.findByIdAndUpdate(_userID, updatedUserData);
+        
+        if (!findUser) throw new NotFoundException({ error: true, message: 'User not found' });
+        if (!!findUser.contact) await this._userContactModel.findByIdAndUpdate(findUser.contact.toString(), contact);
+
+        return { error: false, message: 'User updated' };
     }
 
     async remove(id: number) {

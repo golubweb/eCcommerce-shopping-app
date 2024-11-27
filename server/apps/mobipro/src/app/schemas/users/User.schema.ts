@@ -14,7 +14,7 @@ export class User extends mongoose.Document {
     @Prop({ required: true })
     lastname: string;
 
-    @Prop({ required: true, unique: true })
+    @Prop({ required: true })
     email: string;
 
     @Prop({ required: true })

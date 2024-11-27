@@ -32,6 +32,9 @@ import { RefreshToken, RefreshTokenSchema } from "../schemas/auth/refresh-token.
     ],
     controllers: [ AuthController],
     providers:   [ AuthService, JwtStrategy ],
-    exports:     [ JwtModule, PassportModule, JwtStrategy ]
+    exports:     [ 
+        JwtModule, PassportModule, JwtStrategy,
+        MongooseModule.forFeature([ { name: UserContact.name,  schema: UserContactSchema } ])
+    ]
 })
 export class AuthModule {}
