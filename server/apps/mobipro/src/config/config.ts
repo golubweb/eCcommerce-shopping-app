@@ -1,5 +1,3 @@
-import { send } from "process";
-
 export default () => ({
     mongoDB: {
         username:  process.env.MONGO_USER,

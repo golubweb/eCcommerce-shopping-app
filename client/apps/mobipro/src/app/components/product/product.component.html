@@ -1,0 +1,14 @@
+<div class="article-thumb">
+    <a href="#"><img [attr.src]="product.thumbImageURL" data-src="holder.js/300x200" alt=""></a>							
+</div>
+
+<div class="article-title">			
+    <h3>{{ product.name }}</h3>								
+    <p><span>{{ product.price }}</span></p>							
+</div>
+
+<div class="article-box">								
+    <p>{{ product.secoundDescription }}</p>
+    <button class="btn-cart">Kupi</button>
+    <button class="btn-read" (click)="getProductDetail(product._id)">Detaljnije</button>
+</div>

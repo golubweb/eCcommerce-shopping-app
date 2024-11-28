@@ -2,16 +2,21 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, Observable, tap, throwError } from "rxjs";
 
+import { environment } from "../../../../../environments/environment";
+import { IProduct }    from "../interfaces/product.interface";
+
 @Injectable({
     providedIn: 'root'
 })
 export class ProductService {
     constructor(private _http: HttpClient) {}
 
-    public getAllProducts(): Observable<any> {
-        let url: string = 'http://localhost:4400/mobipro/api/products/all';
+    public getAllProducts(): Observable<IProduct[]> {
+        let url: string = `${environment.API_URL}/products/all`;
 
-        return this._http.get(url).pipe(
+        console.log('URL: ', environment.API_URL);
+
+        return this._http.get<IProduct[]>(url).pipe(
             tap((_products) => {
                 console.log('Next: ', _products);
             }),

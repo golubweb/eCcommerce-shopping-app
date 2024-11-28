@@ -41,7 +41,7 @@ export class Products extends mongoose.Document {
     @Prop({ default: false })
     isPopular?: boolean;
 
-    @Prop({ default: false })
+    @Prop({ default: true })
     isNewProduct: boolean;
 
     @Prop({ default: null })

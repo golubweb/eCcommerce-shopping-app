@@ -1,19 +1,26 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterModule }      from "@angular/router";
+import { CommonModule }      from "@angular/common";
+import { Observable }        from "rxjs";
 
-import { ProductService } from "../../../services/product.service";
-import { CommonModule } from "@angular/common";
+import { ProductService }                from "../../../services/product.service";
+
+import { SingleProductArticleComponent } from "../../product/product.component";
+import { IProduct }                      from "../../../interfaces/product.interface";
 
 @Component({
     selector:    '[front-page]',
     standalone:  true,
-    imports:     [ CommonModule, RouterModule ],
-    //providers:   [ ProductService ],
+    imports:     [ 
+        CommonModule, 
+        RouterModule,
+        SingleProductArticleComponent
+    ],
     templateUrl: './main-front-page.component.html',
     styleUrls:   ['./main-front-page.component.scss']
 })
 export class FrontPageComponent implements OnInit {
-    public products: any;
+    public products: IProduct[] = [];
 
     constructor(private _productService: ProductService) {}
 
@@ -22,12 +29,8 @@ export class FrontPageComponent implements OnInit {
     }
 
     public getAllProducts(): void {
-        this._productService.getAllProducts().subscribe((_products) => {
-            console.log('Products: ', _products);
-
-            if (!!_products) {
-                this.products = _products
-            }
+        this._productService.getAllProducts().subscribe((products: IProduct[]) => {
+            this.products = products;
         });
     }
 }
