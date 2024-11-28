@@ -11,6 +11,7 @@ import { ResetPaswordToken } from '../../schemas/users/reset-password.schema';
 import { MailService }       from './mail.service';
 import { UpdateUserDto }     from '../dtos/update-user.dto';
 import { UserContact } from '../../schemas/users/UserContact.schema';
+import { ERoles } from 'shared/enums/role.enum';
 
 @Injectable()
 export class UsersService {
@@ -36,8 +37,10 @@ export class UsersService {
     }
 
     async updateUserData(_userID: string, _updateUser: UpdateUserDto) {
-        let existingUser                    = await this._userModel.findOne({ email: _updateUser.email }),
+        let existingUser                    = await this._userModel.findOne({ email: _updateUser.email }).select('_id'),
             { contact, ...updatedUserData } = _updateUser;
+
+        console.log('Existing USER DARA: ', existingUser);
 
         if (existingUser && existingUser._id.toString() !== _userID) {
             throw new InternalServerErrorException({ error: true, message: 'Email already exists, not some user!' });
@@ -45,14 +48,24 @@ export class UsersService {
 
         let findUser = await this._userModel.findByIdAndUpdate(_userID, updatedUserData);
         
-        if (!findUser) throw new NotFoundException({ error: true, message: 'User not found' });
+        if (!findUser)          throw new NotFoundException({ error: true, message: 'User not found' });
         if (!!findUser.contact) await this._userContactModel.findByIdAndUpdate(findUser.contact.toString(), contact);
 
         return { error: false, message: 'User updated' };
     }
 
-    async remove(id: number) {
-        return `This action removes a #${id} user`;
+    async removeUser(_userID: string, _adminID: string, _userRole: ERoles[]) {
+        let findUser = await this._userModel.findById(_userID);
+
+        console.log('IF: ', _userRole, ERoles.admin, !_userRole.includes(ERoles.admin));
+
+        if (!findUser)                         throw new NotFoundException({            error: true, message: "Cannot remove user because User doesn't exist" });
+        if (!_userRole.includes(ERoles.admin)) throw new UnauthorizedException({        error: true, message: 'You are not authorized to remove user' });
+        if (findUser.isActive === false)       throw new InternalServerErrorException({ error: true, message: 'User is already removed' });
+
+        await this._userModel.updateOne({ _id: _userID }, { isActive: false });
+
+        return { error: false, message: `User removed: name: ${findUser.name}, lastname: ${findUser.lastname}, email: ${findUser.email}` };
     }
 
     async changePassword(_userId: string, _credentials: ChangePasswordDto) {

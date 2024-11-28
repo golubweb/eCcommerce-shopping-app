@@ -20,11 +20,17 @@ async function bootstrap() {
 	APP.useGlobalFilters(new HttpExceptionFilter());
 	APP.setGlobalPrefix(process.env.GLOBAL_PREFIX); 
 
-	/*APP.enableCors({
-		origin:  'http://localhost:3000/mobipro/api',
-		methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-		allowedHeaders: 'Content-Type, Accept'
-	})*/
+	APP.enableCors({
+		origin: (origin, callback) => {
+			if (origin === 'http://localhost:4200') {
+				callback(new Error('Not allowed by CORS'), false);
+			} else {
+				callback(null, true);
+			}
+		},
+		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+		credentials: true,
+	});
 
 	await APP.listen(process.env.API_PORT || 3000);
 

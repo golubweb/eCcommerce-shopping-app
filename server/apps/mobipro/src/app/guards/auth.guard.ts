@@ -22,11 +22,7 @@ export class AuthGuardUser implements CanActivate {
             token:   string   = this.extractTokenFromRequest(request),
             roles:   string[] = this._reflector.get<string[]>(ROLES_KEY, _context.getHandler());
 
-        console.log('Token: ', roles,`|${token}|`);
-
-        if (!roles) {
-            return true;
-        }
+        if (!roles) return true;
 
         if (!token) {
             throw new UnauthorizedException({
@@ -40,11 +36,12 @@ export class AuthGuardUser implements CanActivate {
         try {
             payloadToken = this._jwtService.verify(token);
 
-            console.log('Payload token: ', payloadToken);
-
-            (request as any).id = payloadToken.id;
+            console.log('Payload token: ', roles, payloadToken);
 
             let userRoles = await this.getUserRoleFromDB(payloadToken.id);
+
+            (request as any).id   = payloadToken.id;
+            (request as any).role = userRoles;
 
             if (!userRoles || !userRoles.some(role => roles.includes(role))) {
                 throw new UnauthorizedException({
@@ -72,18 +69,12 @@ export class AuthGuardUser implements CanActivate {
     private extractTokenFromRequest(_request: Request): string {
         let token: string = _request.headers['authorization'];
 
-        if (!token) {
-            return null;
-        }
-
-        return token.replace('Bearer ', '');
+        return (!token) ? null : token.replace('Bearer ', '');
     }
 
     private async getUserRoleFromDB(_userId: string): Promise<ERoles[]> {
-        const user = await this._userModel.findById(_userId).select('role'); //.select([ 'role', 'lastname']);
+        const user = await this._userModel.findById(_userId).select('role');
 
-        console.log('User ===>: ', user);
-
-        return user?.role ? user.role : [];
+        return (user?.role) ? user.role : [];
     }
 }

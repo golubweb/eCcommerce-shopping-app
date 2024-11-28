@@ -99,22 +99,18 @@ export class AuthService {
         }
 
         let newUserContact = await new this._userContactModel(contact).save(),
-            populatedUser  = await this._userModel.create({ ..._createUserDto, password: hasedPassword, contact: newUserContact._id }).then((_newUser: any) => {
+            populatedUser  = await this._userModel.create({ ..._createUserDto, password: hasedPassword, contact: newUserContact._id }).then((_newUser: User) => {
                 tokenID = _newUser._id;
 
-                return this._userModel.findById(_newUser._id).populate('contact').then((_populatedUser: any) => {
-                    _populatedUser = _populatedUser.toObject();
-    
-                    delete _populatedUser._id;
-                    delete _populatedUser.password;
-                    delete _populatedUser.createdAt;
-                    delete _populatedUser.updatedAt;
-                    delete _populatedUser.__v;
-                    delete _populatedUser.contact._id;
-                    delete _populatedUser.contact.__v;
-    
-                    return _populatedUser;
-                });
+                return this._userModel.findById(_newUser._id).populate('contact').select([ 
+                    '-_id', 
+                    '-password', 
+                    '-createdAt', 
+                    '-updatedAt', 
+                    '-__v', 
+                    '-contact._id', 
+                    '-contact.__v' 
+                ]);
             });
 
         let tokenData = await this.generateUserToken(tokenID, '2h');

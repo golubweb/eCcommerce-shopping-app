@@ -9,6 +9,15 @@
 
 <!-- Start Main -->
 <main>
+    <h2>Front Page of this application!!!</h2>
+    
+    <article *ngFor="let product of products">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <p>{{ product.price }}</p>
+    </article>
+
+    <pre>{{ products | json }}</pre>
 
 </main>
 <!-- End Main -->

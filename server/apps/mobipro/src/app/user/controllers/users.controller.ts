@@ -1,4 +1,5 @@
-import { Controller, Post, Get, Param, Patch, Body, UsePipes, ValidationPipe, HttpException, Delete, UseGuards, Put, Req, UseInterceptors } from "@nestjs/common";
+import { Controller, Post, Get, Param, Patch, Body, UsePipes, ValidationPipe, HttpException, Delete, UseGuards, Put, Req, UseInterceptors, Res } from "@nestjs/common";
+import { Request, Response } from 'express';
 
 import { UsersService }  from '../services/users.service';
 import { AuthGuardUser } from "../../guards/auth.guard";
@@ -10,8 +11,9 @@ import { ResetPasswordDto }  from "../dtos/reset-password.dto";
 import { Roles }  from "../../authorization/decorators/roles.decorator";
 import { ERoles } from "../../../../../../shared/enums/role.enum";
 
-import { UpdateUserDto }     from "../dtos/update-user.dto";
-import { UsersInterceptors } from "../interceptors/users.interceptors";
+import { UpdateUserDto }         from "../dtos/update-user.dto";
+import { UsersInterceptor }      from "../interceptors/users.interceptor";
+import { UsersErrorInterceptor } from "../interceptors/users.error.interceptor";
 
 @Controller('users')
 export class UsersController {
@@ -43,8 +45,17 @@ export class UsersController {
     @Post('update')
     @Roles(ERoles.user)
     @UseGuards(AuthGuardUser)
-    @UseInterceptors(UsersInterceptors)
+    //@UseInterceptors(UsersErrorInterceptor) 
     async updateUserData(@Body() _updateUserDto: UpdateUserDto, @Req() _request) {
         return this._usersService.updateUserData(_request.id, _updateUserDto);
     }
+
+    @Delete('remove/:id')
+    @Roles(ERoles.admin)
+    @UseGuards(AuthGuardUser)
+    async removeUser(@Param('id') _deleteUserID: string, @Req() _request: { id: string, role: ERoles[] }, @Res() _response: Response) {
+        console.log('Request: ', _request.role);
+        
+        return this._usersService.removeUser(_deleteUserID, _request.id, _request.role);
+    } 
 }

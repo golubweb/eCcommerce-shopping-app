@@ -20,7 +20,7 @@ export class User extends mongoose.Document {
     @Prop({ required: true })
     password: string;
 
-    @Prop({ default: false })
+    @Prop({ default: true })
     isActive: boolean;
 
     @Prop({ required: false })                                                    
