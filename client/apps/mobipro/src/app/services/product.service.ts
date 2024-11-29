@@ -16,15 +16,12 @@ export class ProductService {
 
         console.log('URL: ', environment.API_URL);
 
-        return this._http.get<IProduct[]>(url).pipe(
-            tap((_products) => {
-                console.log('Next: ', _products);
-            }),
-            catchError((_error) => {
-                console.log('Error: ', _error);
-
-                return throwError(_error);
-            })
-        );
+        return this._http.get<IProduct[]>(url);
     }
+
+    public getProductByID(_productID: string): Observable<{ error: boolean; message: string; product: IProduct }> {
+        let url: string = `${environment.API_URL}/products/${_productID}`;
+
+        return this._http.get<{ error: boolean; message: string; product: IProduct }>(url);
+    }   
 }

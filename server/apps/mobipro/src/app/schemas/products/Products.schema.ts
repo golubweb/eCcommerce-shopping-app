@@ -5,6 +5,9 @@ import mongoose from "mongoose";
     timestamps: true
 })
 export class Products extends mongoose.Document {
+    @Prop({ default: true })
+    isActive: boolean;
+
     @Prop({ required: true })
     name: string;
 

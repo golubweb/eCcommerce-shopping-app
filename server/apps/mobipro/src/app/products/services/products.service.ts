@@ -4,6 +4,7 @@ import { Model }       from "mongoose";
 
 import { CreateProductDto } from "../dto/CreateProduct.dto";
 import { Products }         from "../../schemas/products/Products.schema";
+import { error } from "console";
 
 @Injectable()
 export class ProductsService {
@@ -23,5 +24,18 @@ export class ProductsService {
 
     async getAllProducts() {
         return this._productsModel.find();
+    }
+
+    async getProductById(_productID: string) {
+        console.log('SERVICE: ', _productID);
+        let findProduct = await this._productsModel.findOne({ _id: _productID });
+
+        console.log('Product Service => getProductById: ', findProduct);
+
+        if (!findProduct || !findProduct.isActive) {
+            throw new HttpException({ error: false, message: 'Product not found!!!', product: null }, 404);
+        }
+
+        return { error: false, message: 'Product found', product: findProduct };
     }
 }

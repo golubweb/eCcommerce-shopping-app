@@ -1,6 +1,10 @@
 import { IsBoolean, IsEmail, IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Matches, MaxLength } from "class-validator";
 
 export class CreateProductDto {
+    @IsOptional()
+    @IsBoolean()
+    isActive?: boolean;
+
     @IsNotEmpty()
     @IsString()
     @MaxLength(90)

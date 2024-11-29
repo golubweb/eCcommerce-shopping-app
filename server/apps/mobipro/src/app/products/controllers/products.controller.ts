@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, UsePipes, ValidationPipe } from "@nestjs/common";
 import { Throttle } from "@nestjs/throttler";
 
 import { CreateProductDto } from "../dto/CreateProduct.dto";
@@ -19,5 +19,12 @@ export class ProductsController {
     @UsePipes(new ValidationPipe())
     async getAllProducts() {
         return this._productsService.getAllProducts();
+    }
+
+    @Get(':id')
+    @UsePipes(new ValidationPipe())
+    async getProductById(@Param('id') _id: string) {
+        console.log('Product Controller => getProductById: ', _id);
+        return this._productsService.getProductById(_id);
     }
 }

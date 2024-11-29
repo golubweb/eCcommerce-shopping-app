@@ -1,0 +1,45 @@
+
+<aside></aside>
+
+<main>
+    @if (!!product) {
+        <div class="product">
+            <div class="product__header">
+                <div class="product__title">
+                    <h5>Popular: {{ product.isPopular }} / Is New Product: {{ (product.isNewProduct) ? 'Yes': 'No' }}</h5>
+                    <h2>Brand / {{ product.brand }}</h2>
+                    <h3>Catergory / {{ product.category }}</h3>
+                    <h1>Name of product: {{ product.name }}</h1>
+                </div>
+    
+                <div class="product__price">
+                    <span>Stock: {{ product.stock }}</span><br />
+                    <span>{{ product.price }} €, {{ (product.onDiscount) ? 'onDiscount' : 'Not on discount' }}</span><br />
+                    <span>reviews: {{ product.reviews }}</span>
+                </div>
+            </div>
+            
+            <div class="product__content">
+                <div class="product__image">
+                    <img [src]="'/' + product.thumbImageURL" alt="{{ product.name }}" />
+    
+                    <div class="product__gallery">
+                        <img *ngFor="let image of product.imagesURL" [src]="'/' + image" alt="{{ product.name }}" />
+                    </div>
+                </div>
+                <div class="product__description">
+                    <div [innerHTML]="product.mainDescription"></div>
+                </div>
+            </div>
+    
+            <div class="product__cart">
+                <button class="btn btn-primary" (click)="addToCart(product._id)">Add to cart</button>
+            </div>
+        </div>
+        
+    } @else {
+        <div class="product">
+            <h1>Product not found 404</h1>
+        </div>
+    }
+</main>

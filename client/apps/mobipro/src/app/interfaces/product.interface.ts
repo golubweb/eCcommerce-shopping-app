@@ -6,7 +6,7 @@ export interface IProduct {
     category:        string[];
     brand:           string;
     imagesURL:       string[];
-    isNew:           boolean;
+    isActive:        boolean;
     isNewProduct:    boolean;
     isPopular:       boolean;
     onDiscount:      boolean;

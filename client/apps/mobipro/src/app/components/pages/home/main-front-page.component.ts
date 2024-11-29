@@ -3,10 +3,10 @@ import { RouterModule }      from "@angular/router";
 import { CommonModule }      from "@angular/common";
 import { Observable }        from "rxjs";
 
-import { ProductService }                from "../../../services/product.service";
+import { ProductService } from "../../../services/product.service";
 
-import { SingleProductArticleComponent } from "../../product/product.component";
-import { IProduct }                      from "../../../interfaces/product.interface";
+import { ProductArticleComponent } from "../../product/article/product-article.component";
+import { IProduct }                from "../../../interfaces/product.interface";
 
 @Component({
     selector:    '[front-page]',
@@ -14,7 +14,7 @@ import { IProduct }                      from "../../../interfaces/product.inter
     imports:     [ 
         CommonModule, 
         RouterModule,
-        SingleProductArticleComponent
+        ProductArticleComponent
     ],
     templateUrl: './main-front-page.component.html',
     styleUrls:   ['./main-front-page.component.scss']
