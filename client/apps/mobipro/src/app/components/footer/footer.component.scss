@@ -39,7 +39,7 @@
                     height: 45px;
                     display: block;
                     float: left;
-                    background: url('../../../../public/images/mobipro-footer.png') top left no-repeat;
+                    background: url('../../../assets/images/styles/mobipro-footer.png') top left no-repeat;
                 }			
                 &:hover {opacity: 0.8;}
             }
@@ -60,12 +60,12 @@
                         height: 29px;
                         float: left;
                         padding: 0 !important;
-                        background: url('../../../../public/images/facebook.jpg') top left no-repeat;
+                        background: url('../../../assets/images/styles/facebook.jpg') top left no-repeat;
                                                 
                         &:hover {opacity: 0.8;}
                     }
-                    &+li a {background: url('../../../../public/images/twitter.jpg') top left no-repeat;}
-                    &+li+li a {background: url('../../../../public/images/rrs.jpg') top left no-repeat;}
+                    &+li a {background: url('../../../assets/images/styles/twitter.jpg') top left no-repeat;}
+                    &+li+li a {background: url('../../../assets/images/styles/rrs.jpg') top left no-repeat;}
                 }
             }
                     

@@ -75,7 +75,7 @@ export class AuthService {
 
         return {
             error:        false,
-            message:      `User created successfully, Welcome: ${userData.displayName}`,
+            message:      `User login is successfully, Welcome: ${userData.displayName}`,
             userData:     userData,
             token:        tokenData.accessToken,
             refreshToken: tokenData.refreshToken
