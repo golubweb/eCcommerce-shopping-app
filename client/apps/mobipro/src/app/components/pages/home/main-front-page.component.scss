@@ -4,9 +4,15 @@
 :host {
     .ei-slider {
         width: 100%;
-        height: 450px;
-        margin-bottom: 10px;
+        height: 440px;
+        margin-bottom: 15px;
         border: 1px solid #eee;
+
+        .ei-slider-thumbs {
+            max-width: 100% !important;
+
+            li {max-width: unset !important;}
+        }
     }
 
     .content {

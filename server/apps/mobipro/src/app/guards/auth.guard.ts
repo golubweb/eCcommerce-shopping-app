@@ -22,6 +22,8 @@ export class AuthGuardUser implements CanActivate {
             token:   string   = this.extractTokenFromRequest(request),
             roles:   string[] = this._reflector.get<string[]>(ROLES_KEY, _context.getHandler());
 
+        console.log('_context: ', token);
+
         if (!roles) return true;
 
         if (!token) {

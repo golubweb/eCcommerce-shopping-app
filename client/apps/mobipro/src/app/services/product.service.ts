@@ -12,9 +12,7 @@ export class ProductService {
     constructor(private _http: HttpClient) {}
 
     public getAllProducts(): Observable<IProduct[]> {
-        let url: string = `${environment.API_URL}/products/all`;
-
-        console.log('URL: ', environment.API_URL);
+        let url: string = `${environment.API_URL}/${environment.FETCH_PRODUCTS}`;
 
         return this._http.get<IProduct[]>(url);
     }

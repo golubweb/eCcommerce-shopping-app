@@ -14,9 +14,7 @@ export class ProductArticleComponent implements OnInit {
 
     constructor(private _router: Router) {}
 
-    ngOnInit(): void {
-        console.log('Product Article component', this.product);
-    }
+    ngOnInit(): void {}
 
     public getProductDetail(_productID: string): void {
         console.log('Product ID: ', _productID);

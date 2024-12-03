@@ -26,3 +26,5 @@ export interface IUserData {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface IUserToken { token: string; refreshToken: string; };

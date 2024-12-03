@@ -1,0 +1,47 @@
+@if (!userData && error) {
+    <h3 [class.errorLogin]="(error) ? true : false">{{ message }}</h3>
+
+} @else if (isUserLogged && !!userData) {
+    <div class="logged">
+        <h3>
+            <figure><img [src]="'assets/images/users/avatar/' + userData.avatarUrl" /></figure>
+            Welcome: <span>{{ userData.displayName }}</span>
+        </h3>
+
+        <div>
+
+            <p>
+                <span><strong>email:</strong> {{ userData.email }}</span>
+                <span><strong>role:</strong> {{ userData.role }}</span>
+                <span><strong>status:</strong> {{ (userData.isActive) ? 'Active': 'Not Active' }}</span>
+                <span (click)="openUserProfile(userData._id)"><strong>go to profle</strong></span>
+            </p>
+        
+            <button class="btn-sub" (click)="logoutUser()">Izloguj se</button>
+        </div>
+    </div>
+
+} @else {
+    <h2>Uloguj se!</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <input 
+            type="text"
+            formControlName="email"
+            placeholder="Vas Email" 
+        />
+        <input 
+            type="password" 
+            formControlName="password"
+            placeholder="Unesite Lozinku" 
+        />
+
+        <label class="checkbox">
+            <input type="checkbox"> Remember me
+        </label>
+
+        <button class="btn-sub" type="submit">Uloguj se</button>
+    </form>	
+}
+
+<div class="hr1"></div>

@@ -26,6 +26,14 @@ export class UsersController {
         return this._usersService.findAll();
     }
 
+    @Post('findUser')
+    @Roles(ERoles.user)
+    async fetchUser(@Body() _token: { token: string },  @Req() _request) {
+        console.log('----------> ', _token.token);
+
+        return this._usersService.findOne(_request.id);
+    }
+
     @Put('change-password')
     @UseGuards(AuthGuardUser)
     async changePassword(@Body() _changePassword: ChangePasswordDto, @Req() _request) {

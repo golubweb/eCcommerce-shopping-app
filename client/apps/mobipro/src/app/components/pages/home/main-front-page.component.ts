@@ -6,7 +6,7 @@ import { Observable }        from "rxjs";
 import { ProductService } from "../../../services/product.service";
 
 import { ProductArticleComponent } from "../../product/article/product-article.component";
-import { LoginWidgetComponent }    from "../../login/login.component";
+import { LoginWidgetComponent }    from "../../login/widget/login-widgrt.component";
 import { IProduct }                from "../../../interfaces/product.interface";
 
 declare var $: any;

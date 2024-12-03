@@ -1,14 +1,12 @@
-import { Component, OnInit }          from '@angular/core';
+import { Component, OnInit }  from '@angular/core';
 import { CommonModule }       from '@angular/common';
-import { provideStore, Store, StoreModule } from '@ngrx/store';
-import { EffectsModule, provideEffects }    from '@ngrx/effects';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors }  from '@angular/common/http';
+import { Store }              from '@ngrx/store';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
-
-//import { ConfigReducer } from '../../store/config/config.reducer';
-//import { ConfigEffects } from '../../store/config/config.effects';
+import { AuthInterceptor } from '../../interceptors/auth.interceptor';
 
 @Component({
 	standalone:  true,
@@ -18,14 +16,11 @@ import { FooterComponent } from '../footer/footer.component';
 		FooterComponent,
 		RouterOutlet,
 		RouterLink,
-		RouterLinkActive,
-		//StoreModule.forRoot({ config: configReducer }),
-		//EffectsModule.forRoot([ ConfigEffects ])
+		RouterLinkActive
 	],
-	/*providers: [
-		provideStore({ config: configReducer }),
-		provideEffects([ ConfigEffects ])
-	],*/
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+	],
 	selector:    'app-root',
 	templateUrl: './app.component.html',
 	styleUrl:    './app.component.scss',
