@@ -19,7 +19,7 @@ import { AuthInterceptor } from '../../interceptors/auth.interceptor';
 		RouterLinkActive
 	],
 	providers: [
-		{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+		//{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
 	],
 	selector:    'app-root',
 	templateUrl: './app.component.html',

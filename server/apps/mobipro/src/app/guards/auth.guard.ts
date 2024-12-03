@@ -22,7 +22,7 @@ export class AuthGuardUser implements CanActivate {
             token:   string   = this.extractTokenFromRequest(request),
             roles:   string[] = this._reflector.get<string[]>(ROLES_KEY, _context.getHandler());
 
-        console.log('_context: ', token);
+        console.log('_context: ', roles, token);
 
         if (!roles) return true;
 
@@ -44,6 +44,8 @@ export class AuthGuardUser implements CanActivate {
 
             (request as any).id   = payloadToken.id;
             (request as any).role = userRoles;
+
+            console.log('User roles~~~~~~~>: ', userRoles);
 
             if (!userRoles || !userRoles.some(role => roles.includes(role))) {
                 throw new UnauthorizedException({

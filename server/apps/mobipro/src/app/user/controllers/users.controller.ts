@@ -28,8 +28,9 @@ export class UsersController {
 
     @Post('findUser')
     @Roles(ERoles.user)
+    @UseGuards(AuthGuardUser)
     async fetchUser(@Body() _token: { token: string },  @Req() _request) {
-        console.log('----------> ', _token.token);
+        console.log('----------> ', _request.id);
 
         return this._usersService.findOne(_request.id);
     }

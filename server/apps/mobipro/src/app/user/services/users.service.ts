@@ -30,10 +30,14 @@ export class UsersService {
     }
 
     async findOne(_id: number) {
-        return await this._userModel.findById(_id).select([ '-password', '-__v', '-createdAt', '-updatedAt', '-mobile' ]).populate({
+        let findUser = await this._userModel.findById(_id).select([ '-password', '-__v', '-createdAt', '-updatedAt', '-mobile' ])/*.populate({
             path: 'contact',
             select: '-mobile'
-        });
+        });*/
+
+        console.log('[[[Find user]]]]: ', findUser, _id);
+
+        return findUser;
     }
 
     async updateUserData(_userID: string, _updateUser: UpdateUserDto) {

@@ -44,7 +44,7 @@ export class UserService {
             map((_response: any) => {
                 console.log('SERVICE response: ', _response);
 
-                if (!_response.error) {
+                if (!!_response && !_response.error) {
                     this._store.dispatch(userActions.setUserData({ 
                         userData:     _response.userData, 
                         token:        _response.token, 
