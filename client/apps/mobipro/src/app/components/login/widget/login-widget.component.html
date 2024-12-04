@@ -21,7 +21,7 @@
         </div>
     </div>
 
-} @else {
+} @else if (isUserRequstSent) {
     <h2>Uloguj se!</h2>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">

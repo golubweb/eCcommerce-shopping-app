@@ -4,8 +4,8 @@ import { JwtService }  from "@nestjs/jwt";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model }       from "mongoose";
 
-import { ROLES_KEY } from "../authorization/decorators/roles.decorator";
-import { User }      from "../schemas/users/User.schema";
+import { ROLES_KEY } from "../decorators/roles.decorator";
+import { User }      from "../../schemas/users/User.schema";
 import { ERoles }    from "shared/enums/role.enum";
 
 @Injectable()
@@ -21,8 +21,6 @@ export class AuthGuardUser implements CanActivate {
             request: Request  = _context.switchToHttp().getRequest(),
             token:   string   = this.extractTokenFromRequest(request),
             roles:   string[] = this._reflector.get<string[]>(ROLES_KEY, _context.getHandler());
-
-        console.log('_context: ', roles, token);
 
         if (!roles) return true;
 
@@ -42,10 +40,9 @@ export class AuthGuardUser implements CanActivate {
 
             let userRoles = await this.getUserRoleFromDB(payloadToken.id);
 
-            (request as any).id   = payloadToken.id;
-            (request as any).role = userRoles;
-
-            console.log('User roles~~~~~~~>: ', userRoles);
+            (request as any).id    = payloadToken.id;
+            (request as any).role  = userRoles;
+            (request as any).token = token;
 
             if (!userRoles || !userRoles.some(role => roles.includes(role))) {
                 throw new UnauthorizedException({

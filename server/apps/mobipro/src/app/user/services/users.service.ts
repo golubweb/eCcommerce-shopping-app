@@ -5,46 +5,51 @@ import { Model }       from 'mongoose';
 import * as bcrypt from 'bcryptjs';
 import { nanoid } from 'nanoid';
 
-import { ChangePasswordDto } from '../dtos/change-password.dto';
 import { User }              from '../../schemas/users/User.schema';
 import { ResetPaswordToken } from '../../schemas/users/reset-password.schema';
+import { UserContact }       from '../../schemas/users/UserContact.schema';
+import { RefreshToken }      from '../../schemas/auth/refresh-token.schema';
+
 import { MailService }       from './mail.service';
+
+import { ChangePasswordDto } from '../dtos/change-password.dto';
 import { UpdateUserDto }     from '../dtos/update-user.dto';
-import { UserContact } from '../../schemas/users/UserContact.schema';
+
 import { ERoles } from 'shared/enums/role.enum';
 
 @Injectable()
 export class UsersService {
     constructor(
         private _mailerService: MailService,
-        @InjectModel(User.name)              private _userModel:        Model<User>,
-        @InjectModel(UserContact.name)       private _userContactModel: Model<UserContact>,
-        @InjectModel(ResetPaswordToken.name) private _resetTokenModel:  Model<ResetPaswordToken>
+        @InjectModel(User.name)              private _userModel:         Model<User>,
+        @InjectModel(UserContact.name)       private _userContactModel:  Model<UserContact>,
+        @InjectModel(ResetPaswordToken.name) private _resetTokenModel:   Model<ResetPaswordToken>,
+        @InjectModel(RefreshToken.name)      private _refreshTokenModel: Model<RefreshToken>
     ) {}
 
     async findAll() {
-        return await this._userModel.find().select([ '-password', '-__v', '-createdAt', '-updatedAt' ]).populate({
-            path: 'contact',
-            select: '-mobile'
-        });
+        return await this._userModel.find().select([ '-password', '-__v', '-createdAt', '-updatedAt' ]).populate('contact');
     }
 
-    async findOne(_id: number) {
-        let findUser = await this._userModel.findById(_id).select([ '-password', '-__v', '-createdAt', '-updatedAt', '-mobile' ])/*.populate({
-            path: 'contact',
-            select: '-mobile'
-        });*/
+    async findOne(_userID: string, _token: string, _refreshToken: string) {
+        console.log('Find one: ', _userID, _refreshToken);
 
-        console.log('[[[Find user]]]]: ', findUser, _id);
+        const findToken = await this._refreshTokenModel.findOne({
+            userId:     _userID,
+            token:      _refreshToken,
+            expiryDate: { $gte: new Date() }
+        });
 
-        return findUser;
+        if (!findToken) throw new UnauthorizedException({ error: true, message: 'Invalid refreshToken token' });
+
+        let findUser = await this._userModel.findById(_userID).select([ '-password', '-__v', '-createdAt', '-updatedAt' ]).populate('contact');
+
+        return { error: false, message: 'Request Successed', userData: findUser, token: _token, refreshToken: findToken.token }; 
     }
 
     async updateUserData(_userID: string, _updateUser: UpdateUserDto) {
         let existingUser                    = await this._userModel.findOne({ email: _updateUser.email }).select('_id'),
             { contact, ...updatedUserData } = _updateUser;
-
-        console.log('Existing USER DARA: ', existingUser);
 
         if (existingUser && existingUser._id.toString() !== _userID) {
             throw new InternalServerErrorException({ error: true, message: 'Email already exists, not some user!' });

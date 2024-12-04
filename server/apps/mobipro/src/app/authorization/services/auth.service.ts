@@ -166,6 +166,22 @@ export class AuthService {
         );
     }
 
+    async logoutUser(_userID: string, _refreshToken: string) {
+        let findToken = await this._refreshTokenModel.findOneAndDelete({ userId: _userID, token: _refreshToken });
+
+        if (!findToken) {
+            throw new UnauthorizedException({
+                error:        false,
+                message:      `Invalid refresh token`,
+                token:        null,
+                userData:     null,
+                refreshToken: null
+            });
+        }
+
+        return { error: false, message: 'User logout successfully', userData: null, token: null, refreshToken: null };
+    }
+
     async generateUserToken(_userID: string, _expireTime: string, _refreshToken?: string) {
         const accessToken  = await this._jwtService.sign({ id: _userID }, { expiresIn: _expireTime || '1h' }),
               refreshToken = (!_refreshToken) ? await this.getRefreshToken() : _refreshToken;

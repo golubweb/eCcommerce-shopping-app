@@ -12,7 +12,7 @@ import * as userSelectors from "../../../store/user/user.selector";
 import { IUserState } from "../../../store/user/user.interface";
 
 @Component({
-    selector:    '[login-widget]',
+    selector:    '[app-login-widget]',
     standalone:  true,
     imports:     [ CommonModule, ReactiveFormsModule ],
     providers:   [ CookieService ],
@@ -20,11 +20,12 @@ import { IUserState } from "../../../store/user/user.interface";
     styleUrls:   ['./login-widget.component.scss']
 })
 export class LoginWidgetComponent implements OnInit {
-    public loginForm!:   FormGroup;
-    public userData:     IUserData | null = null;
-    public error:        boolean = false;
-    public isUserLogged: boolean = false;
-    public message:      string = '';
+    public loginForm!:       FormGroup;
+    public userData:         IUserData | null = null;
+    public isUserRequstSent: boolean = false;
+    public error:            boolean = false;
+    public isUserLogged:     boolean = false;
+    public message:          string = '';
 
     constructor(
         private _store:         Store,
@@ -42,51 +43,42 @@ export class LoginWidgetComponent implements OnInit {
     private userHasToken(): void {
         let tokenFromCookie: IUserToken | null = this.getUserToken();
 
-        console.log('IF user has token: ', tokenFromCookie);
+        console.log('[login-widget] userHasToken(): ', tokenFromCookie);
 
         if (!!tokenFromCookie && tokenFromCookie.hasOwnProperty('token') && tokenFromCookie.hasOwnProperty('refreshToken') ) {
-            console.log('User has token: ', !this.userData);
+            console.log('!this.userData: ', !this.userData);
 
-            if (!this.userData) {
-                this._userService.getUserData(tokenFromCookie.token);
-
-            } else {
-                this._store.select(userSelectors.selectUserData).subscribe((_response: IUserState) => {
-                    console.log('User data from store: ', _response);
-
-                    if (!_response.error) {
-                        this.isUserLogged = true;
-                        this.message      = _response.message;
-                        this.userData     = _response.userData;
-                    } else {
-                        this.isUserLogged = false;
-                    }
-                });
-            }
+            (!this.userData) 
+                ? this._userService.getUserData(tokenFromCookie.refreshToken).then((_value) => ((_value) ? this.isUserRequstSent = true: null))
+                : this.selectUserDataFromStore();
+        } else {
+            this.isUserRequstSent = true;
         }
     }
 
     private selectUserDataFromStore(): void {
+        let tokenFromCookie: IUserToken | null = this.getUserToken();
+
         this._store.select(userSelectors.selectUserData).subscribe((_response: IUserState) => {
-            console.log('User data from store: ', _response);
+            this.error = _response.error;
 
-                this.error = _response.error;
+            if (!_response.error) {
+                this.isUserLogged = true;
+                this.message      = _response.message;
+                this.userData     = _response.userData;
 
-                if (!_response.error) {
-                    this.isUserLogged = true;
-                    this.message      = _response.message;
-                    this.userData     = _response.userData;
-
-                    if (!!_response.token && !!_response.refreshToken) {
-                        this.setUserToken({
-                            token:        _response.token,
-                            refreshToken: _response.refreshToken
-                        });
-                    }
-
-                } else {
-                    this.isUserLogged = false;
+                if (!!_response.token && !!_response.refreshToken) {
+                    (!!tokenFromCookie && this.compareOldTokenWithNew(tokenFromCookie, { token: _response.token, refreshToken: _response.refreshToken }))
+                        ? this.setUserToken({ token: _response.token, refreshToken: _response.refreshToken })
+                        : (!tokenFromCookie)
+                            ? this.setUserToken({ token: _response.token, refreshToken: _response.refreshToken })
+                            : null;
                 }
+
+            } else {
+                this.isUserLogged = false;
+                this.deleteUserToken();
+            }
         });
     }
 
@@ -120,7 +112,9 @@ export class LoginWidgetComponent implements OnInit {
     }
 
     private getUserData(_formData: { email: string; password: string; }): void {
-        this._userService.loginUser(_formData);
+        this._userService.loginUser(_formData).then((_value: boolean) => {
+            if (_value) this.isUserRequstSent = false;
+        });
     }
 
     private getUserToken(): IUserToken | null {
@@ -133,12 +127,22 @@ export class LoginWidgetComponent implements OnInit {
         this._cookieService.set('userToken', JSON.stringify(_token));
     }
 
-    public logoutUser(): void {
-        console.log('Logout user');
+    private deleteUserToken(): void {
+        this._cookieService.delete('userToken');
+    }
 
-        /*this._userService.logoutUser().subscribe((_response) => {
-            console.log('Logout response: ', _response);
-        });*/
+    private compareOldTokenWithNew(_oldToken: IUserToken, _newToken: IUserToken): boolean {
+        return (_oldToken.token !== _newToken.token || _oldToken.refreshToken !== _newToken.refreshToken);
+    }
+
+    public logoutUser(): void {
+        let tokenFromCookie: IUserToken | null = this.getUserToken();
+
+        if (!!tokenFromCookie && tokenFromCookie.hasOwnProperty('token') && tokenFromCookie.hasOwnProperty('refreshToken')) {
+            this._userService.logoutUser(tokenFromCookie.refreshToken).then((_value: boolean) => {
+                if (_value) this.deleteUserToken();
+            });
+        }
     }
 
     public openUserProfile(_id: string): void {

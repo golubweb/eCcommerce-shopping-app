@@ -10,5 +10,5 @@ export const getUserData = createAction(USER_ACTION.GET_USER_DATA);
 
 export const setUserData = createAction(
     USER_ACTION.GET_USER_DATA,
-    props<{ userData: IUserData, token: string, refreshToken: string, message: string }>()
+    props<{ userData: IUserData | null, token: string | null, refreshToken: string | null, message: string }>()
 );

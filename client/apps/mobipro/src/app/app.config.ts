@@ -28,7 +28,6 @@ export const appConfig: ApplicationConfig = {
             EffectsModule.forRoot([ ConfigEffects ]),
             EffectsModule.forFeature(UserEffects),
             StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: false })
-        ),
-        CookieService
+        )
     ],
 };

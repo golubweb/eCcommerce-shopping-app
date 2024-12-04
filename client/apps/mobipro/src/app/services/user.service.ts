@@ -1,6 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Store }      from "@ngrx/store";
+import { Injectable }      from "@angular/core";
+import { HttpClient }      from "@angular/common/http";
+import { Store }           from "@ngrx/store";
+import { CookieService }   from "ngx-cookie-service";
 import { map, Observable } from "rxjs";
 
 import { environment }      from "../../../../../environments/environment";
@@ -15,44 +16,75 @@ import * as userActions from "../store/user/user.actions";
 export class UserService {
     constructor(
         private _store: Store,
-        private _http: HttpClient
+        private _http: HttpClient,
+        private _cookieService: CookieService
     ) {}
 
-    public loginUser(_loginData: IUser) {
-        let url: string = `${environment.API_URL}/${environment.USER_LOGIN}`;
+    public loginUser(_loginData: IUser): Promise<boolean> {
+        return new Promise((resolve) => {
+            let url: string = `${environment.API_URL}/${environment.USER_LOGIN}`;
 
-        this._http.post<IUserLogin>(url, _loginData).pipe(
-            map((_response: IUserLogin) => {
-                if (!_response.error) {
-                    this._store.dispatch(userActions.setUserData({ 
-                        userData:     _response.userData, 
-                        token:        _response.token, 
-                        refreshToken: _response.refreshToken, 
-                        message:      _response.message 
-                    }));
-                }
-            })
-        ).subscribe();
+            this._http.post<IUserLogin>(url, _loginData).pipe(
+                map((_response: IUserLogin) => {
+                    if (!_response.error) {
+                        this._store.dispatch(userActions.setUserData({ 
+                            userData:     _response.userData, 
+                            token:        _response.token, 
+                            refreshToken: _response.refreshToken, 
+                            message:      _response.message 
+                        }));
+                    }
+                })
+            ).subscribe({
+                next:  () => resolve(true),
+                error: () => resolve(false)
+            });
+        });
     }
 
-    public getUserData(_token: string) {
-        let url: string = `${environment.API_URL}/${environment.FIND_USER}`;
+    public getUserData(_refreshToken: string) {
+        return new Promise((resolve) => {
+            let url: string = `${environment.API_URL}/${environment.FIND_USER}`;
 
-        console.log('SERVICE getUserData: ', url, _token);
+            this._http.post<{ token: string }>(url, { refreshToken: _refreshToken }).pipe(
+                map((_response: any) => {
+                    console.log('SERVICE => response: ', _response);
 
-        this._http.post<{ token: string }>(url, { token: _token }).pipe(
-            map((_response: any) => {
-                console.log('SERVICE response: ', _response);
+                    if (!!_response && !_response.error) {
+                        this._store.dispatch(userActions.setUserData({ 
+                            userData:     _response.userData, 
+                            token:        _response.token, 
+                            refreshToken: _response.refreshToken, 
+                            message:      _response.message 
+                        }));
+                    }
+                })
+            ).subscribe({
+                next:  () => resolve(true),
+                error: () => resolve(false)
+            });
+        });
+    }
 
-                if (!!_response && !_response.error) {
-                    this._store.dispatch(userActions.setUserData({ 
-                        userData:     _response.userData, 
-                        token:        _response.token, 
-                        refreshToken: _response.refreshToken, 
-                        message:      _response.message 
-                    }));
-                }
-            })
-        ).subscribe();
+    public logoutUser(_refreshToken: string): Promise<boolean> {
+        return new Promise((resolve) => {
+            let url: string = `${environment.API_URL}/${environment.USET_LOGOUT}`;
+
+            this._http.post<{ token: string }>(url, { refreshToken: _refreshToken }).pipe(
+                map((_response: any) => {
+                    if (!_response.error) {
+                        this._store.dispatch(userActions.setUserData({ 
+                            userData:     null, 
+                            token:        null, 
+                            refreshToken: null, 
+                            message:      _response.message 
+                        }));
+                    }
+                })
+            ).subscribe({
+                next:  () => resolve(true),
+                error: () => resolve(false)
+            });
+        });
     }
 }

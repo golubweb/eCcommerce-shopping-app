@@ -51,16 +51,17 @@
 		    background-repeat: no-repeat;
 		  	background-image:none;
 		}
+
 	    h2 {
 	    	text-indent: -9999px; 
 	    	background-image:none;
 	    }
+
 		&:hover, &:focus, &:active, &.active, &.disabled, &[disabled] {
 	  		background-color:#000000;
   		} 
 	}
 	
-	/*---------- Navbar ---------*/
 	.head-bottom {
   		width: 100%;
   		display: table;
@@ -91,6 +92,8 @@
 			            font-size:16px;
 			            padding:17px 23px;
 			            text-shadow:none;
+						font-family: 'Roboto', sans-serif;
+						font-weight: 500;
 			            text-transform: uppercase;
 			            background: url("../../../assets/images/styles/nav-border.png") top right no-repeat ;
 			                  
