@@ -22,6 +22,8 @@ async function bootstrap() {
 
 	APP.enableCors({
 		origin:  (origin, callback) => {
+			Logger.log(`CORS request from origin: ${origin}`);
+			
 			(originsUrls.includes(origin)) ? callback(null, true) : callback(new Error('Not allowed by CORS'), false);
 		},
 		methods:     'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -30,7 +32,7 @@ async function bootstrap() {
 
 	await APP.listen(process.env.API_PORT || 3000);
 
-	Logger.log(`================> Port i prefix http://localhost:${process.env.API_PORT || 3000}/${process.env.GLOBAL_PREFIX}`);
+	Logger.log(`===============> Port i prefix http://localhost:${process.env.API_PORT || 3000}/${process.env.GLOBAL_PREFIX}`);
 }
 
 bootstrap();

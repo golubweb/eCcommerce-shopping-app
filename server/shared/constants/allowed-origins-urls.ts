@@ -1,6 +1,6 @@
 import { IApiRoutes } from '../interfaces/api.routes.interfaces';
 
-export const originsUrls = [ 'http://localhost:4200' ];
+export const originsUrls = [ 'http://localhost:4200', 'http://localhost:4400' ];
 
 export const apiRoutes: IApiRoutes = {
     AUTH: {
@@ -25,5 +25,14 @@ export const apiRoutes: IApiRoutes = {
         create:  'create',
         all:     'all',
         findOne: ':id'
+    },
+    PAGES: {
+        root:    'pages',
+        create:  'create',
+        findAll: 'all',
+        findOne: ':id',
+        delete:  'delete/:id',
+        update:  'update/:id',
+        remove:  'remove/:id'
     }
 };

@@ -15,7 +15,7 @@ import { UpdateUserDto }         from "../dtos/update-user.dto";
 import { UsersInterceptor }      from "../interceptors/users.interceptor";
 import { UsersErrorInterceptor } from "../interceptors/users.error.interceptor";
 
-import { apiRoutes } from "shared/constants/allowed-origins-urls";
+import { apiRoutes } from "../../../../../../shared/constants/allowed-origins-urls";
 
 @Controller(apiRoutes.USERS.root)
 export class UsersController {

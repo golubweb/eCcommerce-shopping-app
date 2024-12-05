@@ -10,6 +10,7 @@ import { AppService }    from './app.service';
 import { AuthModule }     from './authorization/auth.module';
 import { UsersModule }    from './user/users.module';
 import { ProductsModule } from './products/products.module';
+import { PagesModule }    from './pages/pages.module';
 
 import { LoggingMiddleware } from '../../../../shared/middleware/logging/logging.middleware';
 
@@ -23,7 +24,8 @@ import { LoggingMiddleware } from '../../../../shared/middleware/logging/logging
 		MongooseModule.forRoot(`mongodb://${Config().mongoDB.host}/${Config().mongoDB.database}`),
 		AuthModule,
 		UsersModule,
-		ProductsModule
+		ProductsModule,
+		PagesModule
 	],
 	controllers: [ AppController ],
 	providers:   [ AppService ],
