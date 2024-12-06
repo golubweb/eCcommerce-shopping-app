@@ -24,7 +24,9 @@ declare var $: any;
     styleUrls:   ['./main-front-page.component.scss']
 })
 export class FrontPageComponent implements OnInit, AfterViewInit {
-    public products: IProduct[] = [];
+    public products:     IProduct[] = [];
+    public productLimit: number     = 6;
+    public productSkip:  number     = 0;
 
     constructor(private _productService: ProductService) {}
 
@@ -36,7 +38,7 @@ export class FrontPageComponent implements OnInit, AfterViewInit {
     }
 
     public getAllProducts(): void {
-        this._productService.getAllProducts().subscribe((products: IProduct[]) => {
+        this._productService.getAllProducts(this.productLimit, this.productSkip).subscribe((products: IProduct[]) => {
             this.products = products;
         });
     }

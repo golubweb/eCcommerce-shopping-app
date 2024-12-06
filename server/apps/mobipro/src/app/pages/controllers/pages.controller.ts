@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from "@nestjs/common";
 
 import { Roles }         from "../../authorization/decorators/roles.decorator";
 import { AuthGuardUser } from "../../authorization/guards/auth.guard";
@@ -23,7 +23,26 @@ export class PagesController {
     }
     
     @Get(apiRoutes.PAGES.findAll)
-    async fetchPages() {
-        return this._pageService.getPages();
+    async fetchPages(@Param('limit') _limit?: number, @Param('skip') _skip?: number) {
+        return this._pageService.getPages(_limit, _skip);
+    }
+
+    @Get(apiRoutes.PAGES.findOne)
+    async fetchPageById(@Param('id') _id: string) {
+        return this._pageService.getPageById(_id);
+    }
+
+    @Delete(apiRoutes.PAGES.delete)
+    @Roles(ERoles.admin)
+    @UseGuards(AuthGuardUser)
+    async deletePage(@Param('id') _pageId: string, @Req() _request) {
+        return this._pageService.deletePage(_pageId, _request.id);
+    }
+
+    @Post(apiRoutes.PAGES.update)
+    @Roles(ERoles.admin)
+    @UseGuards(AuthGuardUser)
+    async updatePage(@Param('id') _pageId: string, @Body() _page: CreatePageDto, @Req() _request) {
+        return this._pageService.updatePage(_pageId, _page, _request.id);
     }
 }

@@ -62,6 +62,8 @@ export class LoginWidgetComponent implements OnInit {
         this._store.select(userSelectors.selectUserData).subscribe((_response: IUserState) => {
             this.error = _response.error;
 
+            console.log('selectUserDataFromStore: ', _response);
+
             if (!_response.error) {
                 this.isUserLogged = true;
                 this.message      = _response.message;
@@ -76,7 +78,10 @@ export class LoginWidgetComponent implements OnInit {
                 }
 
             } else {
-                this.isUserLogged = false;
+                this.isUserRequstSent = true;
+                this.isUserLogged     = false;
+                this.userData         = null;
+                
                 this.deleteUserToken();
             }
         });

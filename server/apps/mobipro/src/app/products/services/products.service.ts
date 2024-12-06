@@ -22,8 +22,17 @@ export class ProductsService {
         return newProduct.save();
     }
 
-    async getAllProducts() {
-        return this._productsModel.find();
+    async getAllProducts(_limit?: number, _skip?: number) {
+        let products: Products[] = [],
+            queryProducts = this._productsModel.find().skip((!!_skip) ? _skip : 0);
+
+        if (_limit !== undefined && _limit !== null) {
+            queryProducts = queryProducts.limit(_limit);
+        }
+
+        products = await queryProducts.exec();
+
+        return { error: false, message: (!products.length) ? 'List of Products' : 'Product is empty', productsData: products };
     }
 
     async getProductById(_productID: string) {

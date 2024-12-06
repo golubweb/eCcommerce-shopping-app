@@ -23,13 +23,13 @@ export const apiRoutes: IApiRoutes = {
     PRODUCTS: {
         root:    'products',
         create:  'create',
-        all:     'all',
+        all:     'all/:limit?/:skip?',
         findOne: ':id'
     },
     PAGES: {
         root:    'pages',
         create:  'create',
-        findAll: 'all',
+        findAll: 'all/:limit?/:skip?',
         findOne: ':id',
         delete:  'delete/:id',
         update:  'update/:id',

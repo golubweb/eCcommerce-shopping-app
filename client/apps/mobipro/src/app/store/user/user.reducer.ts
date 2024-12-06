@@ -20,11 +20,15 @@ const _userReducer = createReducer<IUserState>(
     }),
 
     on(userActions.setUserData, (state, { userData, token, refreshToken, message }) => {
+        console.log('Reducer: ', userData, token, refreshToken, message);
+
+        let errorLogin = (!token && !refreshToken  && !userData) ? true : false;
+        
         return {
             userData:     userData,
             token:        (state.token == null || state.token !== token)                      ? token        : state.token,
             refreshToken: (state.refreshToken == null || state.refreshToken !== refreshToken) ? refreshToken : state.refreshToken,
-            error:        state.error,
+            error:        (errorLogin) ? errorLogin : state.error,
             message:      message
         }
     })

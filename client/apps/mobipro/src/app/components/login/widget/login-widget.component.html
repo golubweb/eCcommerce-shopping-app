@@ -1,7 +1,8 @@
-@if (!userData && error) {
+<!--@if (!userData && error) {
     <h3 [class.errorLogin]="(error) ? true : false">{{ message }}</h3>
+}-->
 
-} @else if (isUserLogged && !!userData) {
+@if (isUserLogged && !!userData) {
     <div class="logged">
         <h3>
             <figure><img [src]="'assets/images/users/avatar/' + userData.avatarUrl" /></figure>

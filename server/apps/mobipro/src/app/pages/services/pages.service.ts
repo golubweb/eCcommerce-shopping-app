@@ -13,25 +13,34 @@ export class PagesService {
         @InjectModel(Page.name) private _pageModel: Model<Page>
     ) {}
 
-    async getPages() {
-        let pages = await this._pageModel.find();
+    async getPages(_limit?: number, _skip?: number) {
+        let pages: Page[] = [],
+            queryPage = this._pageModel.find().skip((!!_skip) ? _skip : 0);
 
-        if (!pages.length) {
-            return { error: true, message: 'Pages is empty', pagesData: pages };
+        if (_limit !== undefined && _limit !== null) {
+            queryPage = queryPage.limit(_limit);
         }
 
-        return { error: true, message: 'User not found', pagesData: pages }
+        pages = await queryPage.exec();
+
+        return { error: false, message: (!pages.length) ? 'List of Pages' : 'Pages is empty', pagesData: pages }
     }
 
-    async getPageById() {
-        return {};
+    async getPageById(_pageId: string) {
+        let pageData: Page = await this._pageModel.findOne({ _id: _pageId, isActive: true });
+
+        if (!pageData) {
+            throw new InternalServerErrorException({ error: true, message: 'Page not found', pageData: null });
+        }
+
+        return { error: false, message: 'Page found', pageData: pageData };
     }
 
     async createPage(_pageData: CreatePageDto, _userId: string) {
         console.log('Create page: ', _pageData, _userId);
 
-        let checkIsUserExists = await this._userModel.findOne({ _id: _userId }),
-            checkIsPageExists = await this._pageModel.findOne({ title: _pageData.title });
+        let checkIsUserExists: User = await this._userModel.findOne({ _id: _userId }),
+            checkIsPageExists: Page = await this._pageModel.findOne({ title: _pageData.title });
 
         if (!checkIsUserExists) {
             throw new InternalServerErrorException({ error: true, message: 'User not found', pageData: null });
@@ -52,12 +61,42 @@ export class PagesService {
         return { error: false, message: 'Page created', pageData: pageData };
     }
 
-    async updatePage() {
-        return {};
+    async updatePage(_pageId: string, _updateData: CreatePageDto, _userId: string) {
+        let checkIsUserExists: User = await this._userModel.findOne({ _id: _userId }),
+            checkIsPageExists: Page = await this._pageModel.findOne({ _id: _pageId });
+
+        if (!checkIsUserExists) {
+            throw new InternalServerErrorException({ error: true, message: 'User not found', pageData: null });
+        }
+
+        if (!checkIsPageExists) {
+            throw new InternalServerErrorException({ error: true, message: 'Page not found', pageData: null });
+        }
+
+        let pageUpdate = await this._pageModel.updateOne({ _id: _pageId }, { ..._updateData });
+
+        if (!pageUpdate) {
+            throw new InternalServerErrorException({ error: true, message: 'Page not updated', pageData: null });
+        }
+
+        return { error: false, message: 'Page updated', pageData: pageUpdate };
     }
 
-    async deletePage() {
-        return {};
+    async deletePage(_pageId: string, _userId: string) {
+        let checkIsUserExists: User = await this._userModel.findOne({ _id: _userId }),
+            checkIsPageExists: Page = await this._pageModel.findOne({ _id: _pageId });
+
+        if (!checkIsUserExists) {
+            throw new InternalServerErrorException({ error: true, message: 'User not found', pageData: null });
+        }
+
+        if (!checkIsPageExists) {
+            throw new InternalServerErrorException({ error: true, message: 'Page not found', pageData: null });
+        }
+
+        let pageDelete = await this._pageModel.updateOne({ _id: _pageId }, { isActive: false });
+
+        return { error: false, message: `Page deleted, Title: ${checkIsPageExists.title}, ID: ${checkIsPageExists._id}`, pageData: null };
     }
 
     async getPagesByUserId() {

@@ -19,14 +19,15 @@ export class ProductsController {
     @Get(apiRoutes.PRODUCTS.all)
     @Throttle({ default: { limit: 3, ttl: 2000 } })
     @UsePipes(new ValidationPipe())
-    async getAllProducts() {
-        return this._productsService.getAllProducts();
+    async getAllProducts(@Param('limit') _limit?: number, @Param('skip') _skip?: number) {
+        return this._productsService.getAllProducts(_limit, _skip);
     }
 
     @Get(apiRoutes.PRODUCTS.findOne)
     @UsePipes(new ValidationPipe())
     async getProductById(@Param('id') _id: string) {
         console.log('Product Controller => getProductById: ', _id);
+        
         return this._productsService.getProductById(_id);
     }
 }

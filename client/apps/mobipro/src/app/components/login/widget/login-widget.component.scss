@@ -109,15 +109,19 @@
 
         > div {
             padding: 10px;
-            border: 1px solid #ededed;
-            background: #fff;
+            background: $background;
 
             span {
+                overflow: hidden;
                 display: block;
+                margin-bottom: 10px; 
                 font-size: 13px;
-
+                color: $white;
+                
                 strong {
-                    color: #ef5756;
+                    float: left;
+                    min-width: 50px;
+                    color: $red100;
                     font-weight: 600;
                 }
             }

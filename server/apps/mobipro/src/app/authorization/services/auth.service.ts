@@ -67,10 +67,10 @@ export class AuthService {
 
         if (checkToken) {
             tokenData.refreshToken = checkToken.token;
-            tokenData.accessToken  = (await this.generateUserToken(findUser._id.toString(), '2h', checkToken.token)).accessToken;
+            tokenData.accessToken  = (await this.generateUserToken(findUser._id.toString(), '2m', checkToken.token)).accessToken;
 
         } else {
-            tokenData = await this.generateUserToken(findUser._id.toString(), '2h');
+            tokenData = await this.generateUserToken(findUser._id.toString(), '2m');
         }
 
         return {
@@ -113,7 +113,7 @@ export class AuthService {
                 ]);
             });
 
-        let tokenData = await this.generateUserToken(tokenID, '2h');
+        let tokenData = await this.generateUserToken(tokenID, '2m');
 
         return {
             error:        false,
@@ -140,7 +140,7 @@ export class AuthService {
             });
         }
 
-        let tokenData = await this.generateUserToken(findToken.userId, '2h');
+        let tokenData = await this.generateUserToken(findToken.userId, '2m');
 
         return {
             accessToken:  tokenData.accessToken,
@@ -183,7 +183,7 @@ export class AuthService {
     }
 
     async generateUserToken(_userID: string, _expireTime: string, _refreshToken?: string) {
-        const accessToken  = await this._jwtService.sign({ id: _userID }, { expiresIn: _expireTime || '1h' }),
+        const accessToken  = await this._jwtService.sign({ id: _userID }, { expiresIn: _expireTime || '3h' }),
               refreshToken = (!_refreshToken) ? await this.getRefreshToken() : _refreshToken;
 
         if (!_refreshToken) this.storeRefreshToken(refreshToken, _userID);

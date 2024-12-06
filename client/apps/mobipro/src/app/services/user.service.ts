@@ -57,6 +57,14 @@ export class UserService {
                             refreshToken: _response.refreshToken, 
                             message:      _response.message 
                         }));
+
+                    } else {
+                        this._store.dispatch(userActions.setUserData({ 
+                            userData:     null, 
+                            token:        null, 
+                            refreshToken: null, 
+                            message:      _response.message 
+                        }));
                     }
                 })
             ).subscribe({

@@ -47,7 +47,7 @@ export class Products extends mongoose.Document {
     @Prop({ default: true })
     isNewProduct: boolean;
 
-    @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+    @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
     whoCreated?: string;
 }
 
